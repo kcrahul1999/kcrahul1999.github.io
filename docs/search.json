@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Rahul’s Resume",
+    "section": "",
+    "text": "Download PDF file."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Rahul’s Website",
+    "section": "",
+    "text": "Welcome to my website :3"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "My Projects",
+    "section": "",
+    "text": "My Main Project\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/project1/index.html",
+    "href": "projects/project1/index.html",
+    "title": "My Main Project",
+    "section": "",
+    "text": "Data1\n\n\nData2"
+  },
+  {
+    "objectID": "projects/project1/index.html#sub-header",
+    "href": "projects/project1/index.html#sub-header",
+    "title": "My Main Project",
+    "section": "",
+    "text": "Data2"
+  }
+]
