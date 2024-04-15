@@ -6,7 +6,7 @@ about:
   template: jolla
   links:
     - icon: envelope
-      href: mailto:rkc@ucsd.edu
+      href: mailto: rkc@ucsd.edu
     - icon: linkedin
       href: https://www.linkedin.com/in/rahul-kc-584337216/
 ---
