@@ -18,14 +18,14 @@
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "My Main Project\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Homework 1\n\n\n\n\n\n\nRahul\n\n\nApr 14, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/project1/index.html",
     "href": "projects/project1/index.html",
-    "title": "My Main Project",
+    "title": "Homework 1",
     "section": "",
-    "text": "Data1\n\n\nData2"
+    "text": "Warning: package 'tidyverse' was built under R version 4.3.3\n\n\nWarning: package 'ggplot2' was built under R version 4.3.3\n\n\nWarning: package 'tibble' was built under R version 4.3.3\n\n\nWarning: package 'tidyr' was built under R version 4.3.3\n\n\nWarning: package 'readr' was built under R version 4.3.3\n\n\nWarning: package 'purrr' was built under R version 4.3.3\n\n\nWarning: package 'dplyr' was built under R version 4.3.3\n\n\nWarning: package 'stringr' was built under R version 4.3.3\n\n\nWarning: package 'forcats' was built under R version 4.3.3\n\n\nWarning: package 'lubridate' was built under R version 4.3.3"
   },
   {
     "objectID": "projects/project1/index.html#sub-header",
@@ -33,5 +33,26 @@
     "title": "My Main Project",
     "section": "",
     "text": "Data2"
+  },
+  {
+    "objectID": "projects/project1/index.html#sub-section",
+    "href": "projects/project1/index.html#sub-section",
+    "title": "Homework 1",
+    "section": "Sub-section",
+    "text": "Sub-section\n\nHeader\n\nsome\nwords\nin\nbullets\n\n\nsome\nnumbers\nin\na\nlist\n\ntext can be bold, or italics, or strikethrough\nMy website is https://kcrahul1999.github.io/ or here"
+  },
+  {
+    "objectID": "projects/project1/index.html#tab1",
+    "href": "projects/project1/index.html#tab1",
+    "title": "Homework 1",
+    "section": "tab1",
+    "text": "tab1"
+  },
+  {
+    "objectID": "projects/project1/index.html#tab2",
+    "href": "projects/project1/index.html#tab2",
+    "title": "Homework 1",
+    "section": "tab2",
+    "text": "tab2"
   }
 ]
