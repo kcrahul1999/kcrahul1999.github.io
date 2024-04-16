@@ -5,5 +5,11 @@
       "/projects/project2/index.html",
       "/projects/project1/index.html"
     ]
+  },
+  {
+    "listing": "/homeworks.html",
+    "items": [
+      "/homeworks/homework 1/index.html"
+    ]
   }
 ]

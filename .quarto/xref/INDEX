@@ -16,5 +16,17 @@
   },
   "projects.qmd": {
     "projects.html": "32499c42"
+  },
+  "hw1_questions.qmd": {
+    "hw1_questions.html": "6bf55b1f"
+  },
+  "homeworks/homework 1/hw1_questions.qmd": {
+    "hw1_questions.html": "2387eb12"
+  },
+  "homeworks/homework 1/index.qmd": {
+    "index.html": "91038a88"
+  },
+  "homeworks.qmd": {
+    "homeworks.html": "1a9fde51"
   }
 }
