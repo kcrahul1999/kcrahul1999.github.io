@@ -166,8 +166,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
   <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
-  <li><a href="#t-test-results" id="toc-t-test-results" class="nav-link" data-scroll-target="#t-test-results">T-Test Results:</a></li>
-  <li><a href="#linear-regression-results" id="toc-linear-regression-results" class="nav-link" data-scroll-target="#linear-regression-results">Linear Regression Results:</a></li>
   </ul></li>
   <li><a href="#experimental-results" id="toc-experimental-results" class="nav-link" data-scroll-target="#experimental-results">Experimental Results</a></li>
   <li><a href="#simulation-experiment" id="toc-simulation-experiment" class="nav-link" data-scroll-target="#simulation-experiment">Simulation Experiment</a></li>
@@ -220,15 +218,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description">Description</h3>
-<div id="f34ffc2d" class="cell" data-message="false" data-execution_count="1">
+<div id="f9310d09" class="cell" data-message="false" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: pandas in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (2.2.2)
-Requirement already satisfied: numpy&gt;=1.26.0 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from pandas) (1.26.4)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from pandas) (2.9.0.post0)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2024.1)
-Requirement already satisfied: tzdata&gt;=2022.7 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from pandas) (2024.1)
-Requirement already satisfied: six&gt;=1.5 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
+<pre><code>Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -236,141 +228,19 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 [notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
 </div>
 </div>
-<div id="5febc931" class="cell" data-message="false" data-execution_count="2">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: scipy in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (1.13.0)
-Requirement already satisfied: numpy&lt;2.3,&gt;=1.22.4 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from scipy) (1.26.4)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
+<div id="5101c087" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import libarary and data file</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_stata(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/karlan_list_2007.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="88f300eb" class="cell" data-message="false" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: statsmodels in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (0.14.1)
-Requirement already satisfied: numpy&lt;2,&gt;=1.18 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from statsmodels) (1.26.4)
-Requirement already satisfied: scipy!=1.9.2,&gt;=1.4 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from statsmodels) (1.13.0)
-Requirement already satisfied: pandas!=2.1.0,&gt;=1.0 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from statsmodels) (2.2.2)
-Requirement already satisfied: patsy&gt;=0.5.4 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from statsmodels) (0.5.6)
-Requirement already satisfied: packaging&gt;=21.3 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from statsmodels) (24.0)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from pandas!=2.1.0,&gt;=1.0-&gt;statsmodels) (2.9.0.post0)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from pandas!=2.1.0,&gt;=1.0-&gt;statsmodels) (2024.1)
-Requirement already satisfied: tzdata&gt;=2022.7 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from pandas!=2.1.0,&gt;=1.0-&gt;statsmodels) (2024.1)
-Requirement already satisfied: six in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from patsy&gt;=0.5.4-&gt;statsmodels) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="f65745bf" class="cell" data-message="false" data-execution_count="4">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: pyyaml in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (6.0.1)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="3eb5ceea" class="cell" data-message="false" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: nbformat in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (5.10.4)
-Requirement already satisfied: fastjsonschema&gt;=2.15 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from nbformat) (2.19.1)
-Requirement already satisfied: jsonschema&gt;=2.6 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from nbformat) (4.21.1)
-Requirement already satisfied: jupyter-core!=5.0.*,&gt;=4.12 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from nbformat) (5.7.2)
-Requirement already satisfied: traitlets&gt;=5.1 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from nbformat) (5.14.2)
-Requirement already satisfied: attrs&gt;=22.2.0 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat) (23.2.0)
-Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat) (2023.12.1)
-Requirement already satisfied: referencing&gt;=0.28.4 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat) (0.34.0)
-Requirement already satisfied: rpds-py&gt;=0.7.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat) (0.18.0)
-Requirement already satisfied: platformdirs&gt;=2.5 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-core!=5.0.*,&gt;=4.12-&gt;nbformat) (4.2.0)
-Requirement already satisfied: pywin32&gt;=300 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-core!=5.0.*,&gt;=4.12-&gt;nbformat) (306)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="4c5d8be1" class="cell" data-message="false" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: nbclient in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (0.10.0)
-Requirement already satisfied: jupyter-client&gt;=6.1.12 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from nbclient) (8.6.1)
-Requirement already satisfied: jupyter-core!=5.0.*,&gt;=4.12 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from nbclient) (5.7.2)
-Requirement already satisfied: nbformat&gt;=5.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from nbclient) (5.10.4)
-Requirement already satisfied: traitlets&gt;=5.4 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from nbclient) (5.14.2)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-client&gt;=6.1.12-&gt;nbclient) (2.9.0.post0)
-Requirement already satisfied: pyzmq&gt;=23.0 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-client&gt;=6.1.12-&gt;nbclient) (26.0.0)
-Requirement already satisfied: tornado&gt;=6.2 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-client&gt;=6.1.12-&gt;nbclient) (6.4)
-Requirement already satisfied: platformdirs&gt;=2.5 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-core!=5.0.*,&gt;=4.12-&gt;nbclient) (4.2.0)
-Requirement already satisfied: pywin32&gt;=300 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from jupyter-core!=5.0.*,&gt;=4.12-&gt;nbclient) (306)
-Requirement already satisfied: fastjsonschema&gt;=2.15 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from nbformat&gt;=5.1-&gt;nbclient) (2.19.1)
-Requirement already satisfied: jsonschema&gt;=2.6 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from nbformat&gt;=5.1-&gt;nbclient) (4.21.1)
-Requirement already satisfied: attrs&gt;=22.2.0 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=5.1-&gt;nbclient) (23.2.0)
-Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=5.1-&gt;nbclient) (2023.12.1)
-Requirement already satisfied: referencing&gt;=0.28.4 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=5.1-&gt;nbclient) (0.34.0)
-Requirement already satisfied: rpds-py&gt;=0.7.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=5.1-&gt;nbclient) (0.18.0)
-Requirement already satisfied: six&gt;=1.5 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from python-dateutil&gt;=2.8.2-&gt;jupyter-client&gt;=6.1.12-&gt;nbclient) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="bafa254f" class="cell" data-message="false" data-execution_count="7">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: matplotlib in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (3.8.4)
-Requirement already satisfied: contourpy&gt;=1.0.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (1.2.1)
-Requirement already satisfied: cycler&gt;=0.10 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (0.12.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (4.51.0)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (1.4.5)
-Requirement already satisfied: numpy&gt;=1.21 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (1.26.4)
-Requirement already satisfied: packaging&gt;=20.0 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from matplotlib) (24.0)
-Requirement already satisfied: pillow&gt;=8 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (10.3.0)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (from matplotlib) (3.1.2)
-Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from matplotlib) (2.9.0.post0)
-Requirement already satisfied: six&gt;=1.5 in c:\users\kcrah\appdata\roaming\python\python312\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="75854f22" class="cell" data-message="false" data-execution_count="8">
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: numpy in c:\users\kcrah\appdata\local\programs\python\python312\lib\site-packages (1.26.4)
-Note: you may need to restart the kernel to use updated packages.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-[notice] A new release of pip is available: 23.2.1 -&gt; 24.0
-[notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
-</div>
-</div>
-<div id="783f5801" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_stata(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/karlan_list_2007.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="eea1dbbd" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="5670b421" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <div>
 
@@ -531,9 +401,9 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 </div>
 </div>
-<div id="0ecf7617" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="12c83f49" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <div>
 
@@ -1017,34 +887,34 @@ Balance Test
 </div>
 <p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
 <p>First I did a t-test to compare the mrm2 between the treatment and control groups to determine if there are any statistically significant differences at the 95% confidence level.</p>
-<div id="7a631be3" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Getting data for t-test and linear regression</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>treatment_mrm2 <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'mrm2'</span>]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>control_mrm2 <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'mrm2'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="38d1cb97" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Getting data for t-test and linear regression</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>treatment_mrm2 <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'mrm2'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>control_mrm2 <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'mrm2'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9fadb05e" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>t_test_result <span class="op">=</span> ttest_ind(treatment_mrm2.dropna(), control_mrm2.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>t_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div id="912547ed" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>t_test_result <span class="op">=</span> ttest_ind(treatment_mrm2.dropna(), control_mrm2.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>t_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>TtestResult(statistic=0.11953155228177251, pvalue=0.9048549631450832, df=33394.47581389535)</code></pre>
 </div>
 </div>
 <p>Then I did a linear regression to again compare the mrm2 between the treatment and control groups to determine if there are any statistically significant differences at the 95% confidence level.</p>
-<div id="ca6a0e2a" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data for linear regression</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(data[<span class="st">'treatment'</span>])  <span class="co"># Adding a constant for the intercept</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'mrm2'</span>].dropna()</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X[X.index.isin(y.index)]  <span class="co">#Match index in X and y after dropping 'NA' in y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bf756ba2" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data for linear regression</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(data[<span class="st">'treatment'</span>])  <span class="co"># Adding a constant for the intercept</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'mrm2'</span>].dropna()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X[X.index.isin(y.index)]  <span class="co">#Match index in X and y after dropping 'NA' in y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4d29d000" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Linear regression</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="91a519e0" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Linear regression</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2788778d" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t_test_result, results.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div id="9535a02b" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>t_test_result, results.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(TtestResult(statistic=0.11953155228177251, pvalue=0.9048549631450832, df=33394.47581389535),
  &lt;class 'statsmodels.iolib.summary.Summary'&gt;
  """
@@ -1054,7 +924,7 @@ Balance Test
  Model:                            OLS   Adj. R-squared:                 -0.000
  Method:                 Least Squares   F-statistic:                   0.01428
  Date:                Tue, 16 Apr 2024   Prob (F-statistic):              0.905
- Time:                        16:55:17   Log-Likelihood:            -1.9585e+05
+ Time:                        17:52:22   Log-Likelihood:            -1.9585e+05
  No. Observations:               50082   AIC:                         3.917e+05
  Df Residuals:                   50080   BIC:                         3.917e+05
  Df Model:                           1                                         
@@ -1076,23 +946,23 @@ Balance Test
  """)</code></pre>
 </div>
 </div>
-</section>
-<section id="t-test-results" class="level3">
-<h3 class="anchored" data-anchor-id="t-test-results">T-Test Results:</h3>
+<section id="t-test-results" class="level4">
+<h4 class="anchored" data-anchor-id="t-test-results">T-Test Results:</h4>
 <ul>
 <li>Statistic: 0.120</li>
 <li>P-value: 0.905</li>
 </ul>
 <p>The t-test results indicate that there is no statistically significant difference in the months since the last donation between the treatment and control groups (p-value &gt; 0.05).</p>
 </section>
-<section id="linear-regression-results" class="level3">
-<h3 class="anchored" data-anchor-id="linear-regression-results">Linear Regression Results:</h3>
+<section id="linear-regression-results" class="level4">
+<h4 class="anchored" data-anchor-id="linear-regression-results">Linear Regression Results:</h4>
 <ul>
 <li>Coefficient for treatment: 0.0137</li>
 <li>Standard error: 0.115</li>
 <li>P-value: 0.905</li>
 </ul>
 <p>The linear regression, shows a statistically insignificant coefficient for the treatment variable when p-value &gt; 0.05. No impact of the treatment on the months since last donation.</p>
+</section>
 </section>
 </section>
 <section id="experimental-results" class="level2">
@@ -1117,72 +987,73 @@ Charitable Contribution Made
 </div>
 <p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
 <p>I started by making a bar plot. Each bar is the proportion of people who donated. One bar for treatment and one bar for control.</p>
-<div id="dd5eef8c" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the proportion of donors in treatment and control groups</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>donor_proportion_treatment <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>].mean()</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>donor_proportion_control <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>].mean()</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Lable and prop</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'Treatment'</span>, <span class="st">'Control'</span>]</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>proportions <span class="op">=</span> [donor_proportion_treatment, donor_proportion_control]</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Bar plot</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> plt.bar(labels, proportions, color<span class="op">=</span>[<span class="st">'blue'</span>, <span class="st">'green'</span>])</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding percentage labels above the bars</span></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar <span class="kw">in</span> bars:</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    yval <span class="op">=</span> bar.get_height()</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    plt.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, yval, <span class="ss">f'</span><span class="sc">{</span>yval<span class="sc">:.2%}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Proportion Who Donated'</span>)</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Proportion of People Who Donated by Group'</span>)</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="973fd66d" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the proportion of donors in treatment and control groups</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>donor_proportion_treatment <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>].mean()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>donor_proportion_control <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>].mean()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Lable and prop</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'Treatment'</span>, <span class="st">'Control'</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>proportions <span class="op">=</span> [donor_proportion_treatment, donor_proportion_control]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Bar plot</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> plt.bar(labels, proportions, color<span class="op">=</span>[<span class="st">'blue'</span>, <span class="st">'green'</span>])</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding percentage labels above the bars</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar <span class="kw">in</span> bars:</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    yval <span class="op">=</span> bar.get_height()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    plt.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, yval, <span class="ss">f'</span><span class="sc">{</span>yval<span class="sc">:.2%}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Proportion Who Donated'</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Proportion of People Who Donated by Group'</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-18-output-1.png" width="680" height="431" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-1.png" width="680" height="431" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The bar graph above shows that in the treatment group 2.20% of the participants made a donation. In the control group 1.79% of the participants donated.</p>
 <p>Next I ran a t-test between the treatment and control groups on the binary outcome of whether any charitable donation was made.</p>
-<div id="9234f7be" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Match data for t-test on the binary outcome 'gave'</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>gave_treatment <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>gave_control <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5cd5e3ad" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Match data for t-test on the binary outcome 'gave'</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gave_treatment <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>gave_control <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="048e7247" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>t_test_gave_result <span class="op">=</span> ttest_ind(gave_treatment.dropna(), gave_control.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>t_test_gave_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div id="b10638fc" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>t_test_gave_result <span class="op">=</span> ttest_ind(gave_treatment.dropna(), gave_control.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>t_test_gave_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>TtestResult(statistic=3.2094621908279835, pvalue=0.001330982345091417, df=36576.84238986656)</code></pre>
 </div>
 </div>
-<ul>
-<li>T-Test Statistic: 3.209</li>
-<li>P-value: 0.0013</li>
-</ul>
+<section id="t-test-3.209" class="level4">
+<h4 class="anchored" data-anchor-id="t-test-3.209">t-test: 3.209</h4>
+</section>
+<section id="p-val-0.0013" class="level4">
+<h4 class="anchored" data-anchor-id="p-val-0.0013">p-val: 0.0013</h4>
 <p>This shows a statistically significant difference between the treatment and control groups as shown by the p-value being below 0.05 meaning we reject the null hypothesis.</p>
 <p>I also ran a bivariate linear regression that demonstrates the same finding.</p>
-<div id="25bdce59" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Matching data for linear regression</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>X_gave <span class="op">=</span> sm.add_constant(data[<span class="st">'treatment'</span>])  <span class="co">#Adding a constant for the intercept</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>y_gave <span class="op">=</span> data[<span class="st">'gave'</span>].dropna()</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>X_gave <span class="op">=</span> X_gave[X_gave.index.isin(y_gave.index)]  <span class="co">#Match index in X and y after dropping 'NA' in y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="89c865a8" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Matching data for linear regression</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X_gave <span class="op">=</span> sm.add_constant(data[<span class="st">'treatment'</span>])  <span class="co">#Adding a constant for the intercept</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>y_gave <span class="op">=</span> data[<span class="st">'gave'</span>].dropna()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>X_gave <span class="op">=</span> X_gave[X_gave.index.isin(y_gave.index)]  <span class="co">#Match index in X and y after dropping 'NA' in y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="67e6d6ee" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model_gave <span class="op">=</span> sm.OLS(y_gave, X_gave)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>results_gave <span class="op">=</span> model_gave.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4c47ea68" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model_gave <span class="op">=</span> sm.OLS(y_gave, X_gave)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>results_gave <span class="op">=</span> model_gave.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="775e7732" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_test_gave_result, results_gave.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div id="21c4aca2" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>t_test_gave_result, results_gave.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>(TtestResult(statistic=3.2094621908279835, pvalue=0.001330982345091417, df=36576.84238986656),
  &lt;class 'statsmodels.iolib.summary.Summary'&gt;
  """
@@ -1192,7 +1063,7 @@ Charitable Contribution Made
  Model:                            OLS   Adj. R-squared:                  0.000
  Method:                 Least Squares   F-statistic:                     9.618
  Date:                Tue, 16 Apr 2024   Prob (F-statistic):            0.00193
- Time:                        16:55:18   Log-Likelihood:                 26630.
+ Time:                        17:52:23   Log-Likelihood:                 26630.
  No. Observations:               50083   AIC:                        -5.326e+04
  Df Residuals:                   50081   BIC:                        -5.324e+04
  Df Model:                           1                                         
@@ -1214,11 +1085,14 @@ Charitable Contribution Made
  """)</code></pre>
 </div>
 </div>
-<ul>
-<li>Coefficient for treatment: 0.0042</li>
-<li>P-value: 0.002</li>
-</ul>
-<p>In the bivariate linear regression, regressing the binary outcome ‘gave’ on the treatment variable shows a positive coefficient for treatment. This means it’s statistically significant, which matchs the aforementioned t-test.</p>
+</section>
+<section id="coefficient-for-treatment-0.0042" class="level4">
+<h4 class="anchored" data-anchor-id="coefficient-for-treatment-0.0042">Coefficient for treatment: 0.0042</h4>
+</section>
+<section id="p-value-0.002" class="level4">
+<h4 class="anchored" data-anchor-id="p-value-0.002">P-value: 0.002</h4>
+<p>The bivariate linear regression, by regressing the binary outcome ‘gave’, on the treatment variable shows a positive coefficient for treatment of 0.0042. This means it’s statistically significant, which matchs the aforementioned t-test.</p>
+</section>
 <section id="human-behavior" class="level4">
 <h4 class="anchored" data-anchor-id="human-behavior">Human Behavior</h4>
 <p>This shows the treatment group had a higher proportion people who donated than the control group, by 0.42%, as shown by the treatment regression coefficient.This means that the treatment of a matching grant letter is enough to persuage some into donating.</p>
@@ -1242,11 +1116,11 @@ Differences between Match Rates
 </div>
 <p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
 <p>I started by using a series of t-tests to test whether the size of the match ratio has an effect on whether people donate or not. For example, does the 2:1 match rate lead increase the likelihood that someone donates as compared to the 1:1 match rate?</p>
-<div id="3e2f1b8e" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data for the 2:1 match rate group </span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ratio2_sample <span class="op">=</span> data[data[<span class="st">'ratio2'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>ratio2_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div id="0d5f7b5e" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data for the 2:1 match rate group </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ratio2_sample <span class="op">=</span> data[data[<span class="st">'ratio2'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ratio2_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 <div>
 
@@ -1551,11 +1425,11 @@ Differences between Match Rates
 </div>
 </div>
 </div>
-<div id="0a1a3485" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get  data for the 1:1 match rate group </span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ratio1_sample <span class="op">=</span> data[data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ratio1_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div id="f6bcb903" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get  data for the 1:1 match rate group </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ratio1_sample <span class="op">=</span> data[data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>ratio1_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 <div>
 
@@ -1860,17 +1734,17 @@ Differences between Match Rates
 </div>
 </div>
 </div>
-<div id="53206c3b" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match data for t-tests comparing different match ratios</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>gave_ratio1 <span class="op">=</span> data[data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="st">'1'</span>][<span class="st">'gave'</span>]</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>gave_ratio2 <span class="op">=</span> data[data[<span class="st">'ratio2'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e53fe526" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match data for t-tests comparing different match ratios</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>gave_ratio1 <span class="op">=</span> data[data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="st">'1'</span>][<span class="st">'gave'</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>gave_ratio2 <span class="op">=</span> data[data[<span class="st">'ratio2'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="aafc85fe" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calc t-test for ratios</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>t_test_ratio1_vs_ratio2 <span class="op">=</span> ttest_ind(gave_ratio1.dropna(), gave_ratio2.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>t_test_ratio1_vs_ratio2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div id="7ec27da5" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calc t-test for ratios</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>t_test_ratio1_vs_ratio2 <span class="op">=</span> ttest_ind(gave_ratio1.dropna(), gave_ratio2.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>t_test_ratio1_vs_ratio2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>TtestResult(statistic=nan, pvalue=nan, df=nan)</code></pre>
 </div>
 </div>
@@ -1894,6 +1768,27 @@ Size of Charitable Contribution
 </div>
 </div>
 <p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution…</p>
+<p>I started by doing a t-test on the donation amount based on treatment status, to see if there’s a statistically significant difference in the amount donated between the treatment group and the control group.</p>
+<div id="bf6cde51" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get donation amounts for treatment and control groups</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>treatment_amounts <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'amount'</span>]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>control_amounts <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'amount'</span>]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#t-test between the two groups</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>t_test_results <span class="op">=</span> ttest_ind(treatment_amounts.dropna(), control_amounts.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>t_test_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>TtestResult(statistic=1.9182618934467577, pvalue=0.055085665289183336, df=36216.05660774625)</code></pre>
+</div>
+</div>
+</section>
+<section id="t-test-1.92" class="level4">
+<h4 class="anchored" data-anchor-id="t-test-1.92">t-test: 1.92</h4>
+</section>
+<section id="p-val-0.06" class="level4">
+<h4 class="anchored" data-anchor-id="p-val-0.06">p-val: 0.06</h4>
+<p>The t-test shows that the treatment mean donation the control group, with the difference being 1.918. The p-val of 0.06 which is higher than 0.05 means there is a small difference in the means of the donation amounts between the treatment and control groups.</p>
 </section>
 </section>
 <section id="simulation-experiment" class="level2">
@@ -1917,7 +1812,8 @@ Law of Large Numbers
 </div>
 </div>
 </div>
-<p>First I made a plot like those on slide 43 from our first class. The plot shows… This was done by simulating 100,000 draws from the control distribution and 10,000 draws from the treatment distribution. I then calculated a vector of 10,000 differences, and then I ploted the cumulative average of the vector of differences. The cumulative average approaches the true difference in means because…</p>
+<p>First I made a plot like those on slide 43 from our first class. The plot shows…</p>
+<p>This was done by simulating 100,000 draws from the control distribution and 10,000 draws from the treatment distribution. I then calculated a vector of 10,000 differences, and then I ploted the cumulative average of the vector of differences. The cumulative average approaches the true difference in means because…</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1935,79 +1831,82 @@ Central Limit Theorem
 </div>
 </div>
 <p>I made 4 histograms like those on slide 44 from our first class at sample sizes 50, 200, 500, and 1000 which show… I did this for sample size 50,200,500 and 1000 by taking the respective sample draws from each of the control and treatment distributions, and calculating the average difference between those draws. Then repeating that process 999 more times so I had 1000 averages. The zero is the “middle” of the distribution for all 4 histograms.</p>
-<div id="4b3f2cbd" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate means and standard deviations for 'gave' </span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>treatment_gave <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>control_gave <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>mean_treatment <span class="op">=</span> treatment_gave.mean()</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>mean_control <span class="op">=</span> control_gave.mean()</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>std_treatment <span class="op">=</span> treatment_gave.std()</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>std_control <span class="op">=</span> control_gave.std()</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Show mean and std dev for treat and control</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Treatment Mean:"</span>, mean_treatment, <span class="st">"Control Mean:"</span>, mean_control)</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Treatment Std Dev:"</span>, std_treatment, <span class="st">"Control Std Dev:"</span>, std_control)</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Simulate differences</span></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_differences(sample_size, num_simulations):</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    differences <span class="op">=</span> []</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_simulations):</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>        treatment_sample <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, mean_treatment, sample_size)</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>        control_sample <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, mean_control, sample_size)</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>        differences.append(treatment_sample.mean() <span class="op">-</span> control_sample.mean())</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> differences</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Get sample size and 1000 simulation</span></span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>]</span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Make all histograms</span></span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> size <span class="kw">in</span> sample_sizes:</span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>    diffs <span class="op">=</span> simulate_differences(size, num_simulations)</span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>    plt.figure()</span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>    plt.hist(diffs, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.75</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
-<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Zero'</span>)</span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Histogram of Differences for Sample Size </span><span class="sc">{</span>size<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Difference in Proportions'</span>)</span>
-<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Frequency'</span>)</span>
-<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="76977944" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate means and standard deviations for 'gave' </span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>treatment_gave <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>control_gave <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>mean_treatment <span class="op">=</span> treatment_gave.mean()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>mean_control <span class="op">=</span> control_gave.mean()</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>std_treatment <span class="op">=</span> treatment_gave.std()</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>std_control <span class="op">=</span> control_gave.std()</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Show mean and std dev for treat and control</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Treatment Mean:"</span>, mean_treatment, <span class="st">"Control Mean:"</span>, mean_control)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Treatment Std Dev:"</span>, std_treatment, <span class="st">"Control Std Dev:"</span>, std_control)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Treatment Mean: 0.02203856749311295 Control Mean: 0.017858212980164198
 Treatment Std Dev: 0.14681115226051514 Control Std Dev: 0.13243998017151457</code></pre>
 </div>
+</div>
+<div id="2e68bd7c" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Function to simulate differences</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_differences(sample_size, num_simulations):</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    differences <span class="op">=</span> []</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_simulations):</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        treatment_sample <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, mean_treatment, sample_size)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        control_sample <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, mean_control, sample_size)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        differences.append(treatment_sample.mean() <span class="op">-</span> control_sample.mean())</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> differences</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Get sample size and 1000 simulation</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>]</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Make 4 histograms</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> size <span class="kw">in</span> sample_sizes:</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    diffs <span class="op">=</span> simulate_differences(size, num_simulations)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    plt.figure()</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    plt.hist(diffs, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.75</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Zero'</span>)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Histogram of Differences for Sample Size </span><span class="sc">{</span>size<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Difference in Proportions'</span>)</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-28-output-2.png" width="593" height="449" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-23-output-1.png" width="593" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-28-output-3.png" width="593" height="449" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-23-output-2.png" width="593" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-28-output-4.png" width="598" height="449" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-23-output-3.png" width="585" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-28-output-5.png" width="593" height="449" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-23-output-4.png" width="593" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <section id="histogram-explanation" class="level4">
 <h4 class="anchored" data-anchor-id="histogram-explanation">Histogram Explanation:</h4>
+<p>All 4 histrograms show the zero line is at 0.0. This means that there is no statistically significant effect of the treatment on the measured outcome across the sampled observations.</p>
 
 
 </section>
