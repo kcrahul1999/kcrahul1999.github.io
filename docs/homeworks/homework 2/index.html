@@ -9,7 +9,7 @@
 <meta name="author" content="Rahul Kc">
 <meta name="dcterms.date" content="2024-04-29">
 
-<title>Rahul - A Replication of Karlan and List (2007)</title>
+<title>Rahul - HW 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A Replication of Karlan and List (2007)</h1>
+<h1 class="title">HW 2</h1>
 </div>
 
 
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <section id="description" class="level3">
 <h3 class="anchored" data-anchor-id="description">Description</h3>
-<div id="09008481" class="cell" data-message="false" data-execution_count="1">
+<div id="fbd65baf" class="cell" data-message="false" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
 </div>
 </div>
-<div id="d49af300" class="cell" data-execution_count="2">
+<div id="76945aa5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import libarary and data file</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_stata(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/karlan_list_2007.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0da8e1c3" class="cell" data-execution_count="3">
+<div id="9ee42188" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="b7cce3ca" class="cell" data-execution_count="4">
+<div id="e8543289" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -887,12 +887,12 @@ Balance Test
 </div>
 <p>As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.</p>
 <p>First I did a t-test to compare the mrm2 between the treatment and control groups to determine if there are any statistically significant differences at the 95% confidence level.</p>
-<div id="58bb80a3" class="cell" data-execution_count="5">
+<div id="522e0ed1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Getting data for t-test and linear regression</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>treatment_mrm2 <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'mrm2'</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>control_mrm2 <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'mrm2'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3f0b8948" class="cell" data-execution_count="6">
+<div id="942364ec" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>t_test_result <span class="op">=</span> ttest_ind(treatment_mrm2.dropna(), control_mrm2.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>t_test_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -901,18 +901,18 @@ Balance Test
 </div>
 </div>
 <p>Then I did a linear regression to again compare the mrm2 between the treatment and control groups to determine if there are any statistically significant differences at the 95% confidence level.</p>
-<div id="1f422ba5" class="cell" data-execution_count="7">
+<div id="af639da4" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data for linear regression</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(data[<span class="st">'treatment'</span>])  <span class="co"># Adding a constant for the intercept</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'mrm2'</span>].dropna()</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X[X.index.isin(y.index)]  <span class="co">#Match index in X and y after dropping 'NA' in y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4b50f8e2" class="cell" data-execution_count="8">
+<div id="a36f27be" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Linear regression</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> model.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ef79467f" class="cell" data-execution_count="9">
+<div id="58642fd9" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>t_test_result, results.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(TtestResult(statistic=0.11953155228177251, pvalue=0.9048549631450832, df=33394.47581389535),
@@ -923,8 +923,8 @@ Balance Test
  Dep. Variable:                   mrm2   R-squared:                       0.000
  Model:                            OLS   Adj. R-squared:                 -0.000
  Method:                 Least Squares   F-statistic:                   0.01428
- Date:                Tue, 16 Apr 2024   Prob (F-statistic):              0.905
- Time:                        17:56:49   Log-Likelihood:            -1.9585e+05
+ Date:                Mon, 29 Apr 2024   Prob (F-statistic):              0.905
+ Time:                        16:22:34   Log-Likelihood:            -1.9585e+05
  No. Observations:               50082   AIC:                         3.917e+05
  Df Residuals:                   50080   BIC:                         3.917e+05
  Df Model:                           1                                         
@@ -987,7 +987,7 @@ Charitable Contribution Made
 </div>
 <p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
 <p>I started by making a bar plot. Each bar is the proportion of people who donated. One bar for treatment and one bar for control.</p>
-<div id="0306ce85" class="cell" data-execution_count="10">
+<div id="4b53b046" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the proportion of donors in treatment and control groups</span></span>
@@ -1020,12 +1020,12 @@ Charitable Contribution Made
 </div>
 <p>The bar graph above shows that in the treatment group 2.20% of the participants made a donation. In the control group 1.79% of the participants donated.</p>
 <p>Next I ran a t-test between the treatment and control groups on the binary outcome of whether any charitable donation was made.</p>
-<div id="cd6f84df" class="cell" data-execution_count="11">
+<div id="d7f38377" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Match data for t-test on the binary outcome 'gave'</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gave_treatment <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>gave_control <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3f63074e" class="cell" data-execution_count="12">
+<div id="31c152c4" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>t_test_gave_result <span class="op">=</span> ttest_ind(gave_treatment.dropna(), gave_control.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>t_test_gave_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1040,18 +1040,18 @@ Charitable Contribution Made
 <h4 class="anchored" data-anchor-id="p-val-0.0013">p-val: 0.0013</h4>
 <p>This shows a statistically significant difference between the treatment and control groups as shown by the p-value being below 0.05 meaning we reject the null hypothesis.</p>
 <p>I also ran a bivariate linear regression that demonstrates the same finding.</p>
-<div id="8279c513" class="cell" data-execution_count="13">
+<div id="527d6cb1" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Matching data for linear regression</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X_gave <span class="op">=</span> sm.add_constant(data[<span class="st">'treatment'</span>])  <span class="co">#Adding a constant for the intercept</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>y_gave <span class="op">=</span> data[<span class="st">'gave'</span>].dropna()</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>X_gave <span class="op">=</span> X_gave[X_gave.index.isin(y_gave.index)]  <span class="co">#Match index in X and y after dropping 'NA' in y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d7f8572d" class="cell" data-execution_count="14">
+<div id="61a3208c" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model_gave <span class="op">=</span> sm.OLS(y_gave, X_gave)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>results_gave <span class="op">=</span> model_gave.fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="00b9ed24" class="cell" data-execution_count="15">
+<div id="fb5f1180" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>t_test_gave_result, results_gave.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>(TtestResult(statistic=3.2094621908279835, pvalue=0.001330982345091417, df=36576.84238986656),
@@ -1062,8 +1062,8 @@ Charitable Contribution Made
  Dep. Variable:                   gave   R-squared:                       0.000
  Model:                            OLS   Adj. R-squared:                  0.000
  Method:                 Least Squares   F-statistic:                     9.618
- Date:                Tue, 16 Apr 2024   Prob (F-statistic):            0.00193
- Time:                        17:56:50   Log-Likelihood:                 26630.
+ Date:                Mon, 29 Apr 2024   Prob (F-statistic):            0.00193
+ Time:                        16:22:34   Log-Likelihood:                 26630.
  No. Observations:               50083   AIC:                        -5.326e+04
  Df Residuals:                   50081   BIC:                        -5.324e+04
  Df Model:                           1                                         
@@ -1116,7 +1116,7 @@ Differences between Match Rates
 </div>
 <p>Next, I assess the effectiveness of different sizes of matched donations on the response rate.</p>
 <p>I started by using a series of t-tests to test whether the size of the match ratio has an effect on whether people donate or not. For example, does the 2:1 match rate lead increase the likelihood that someone donates as compared to the 1:1 match rate?</p>
-<div id="194bad93" class="cell" data-execution_count="16">
+<div id="23c8113f" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data for the 2:1 match rate group </span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ratio2_sample <span class="op">=</span> data[data[<span class="st">'ratio2'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ratio2_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1425,7 +1425,7 @@ Differences between Match Rates
 </div>
 </div>
 </div>
-<div id="14f69903" class="cell" data-execution_count="17">
+<div id="66c723d6" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get  data for the 1:1 match rate group </span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ratio1_sample <span class="op">=</span> data[data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>ratio1_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1734,12 +1734,12 @@ Differences between Match Rates
 </div>
 </div>
 </div>
-<div id="a7176028" class="cell" data-execution_count="18">
+<div id="d900f861" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match data for t-tests comparing different match ratios</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>gave_ratio1 <span class="op">=</span> data[data[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="st">'1'</span>][<span class="st">'gave'</span>]</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>gave_ratio2 <span class="op">=</span> data[data[<span class="st">'ratio2'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="69ab2793" class="cell" data-execution_count="19">
+<div id="d9b00bdb" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calc t-test for ratios</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>t_test_ratio1_vs_ratio2 <span class="op">=</span> ttest_ind(gave_ratio1.dropna(), gave_ratio2.dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1769,7 +1769,7 @@ Size of Charitable Contribution
 </div>
 <p>In this subsection, I analyze the effect of the size of matched donation on the size of the charitable contribution…</p>
 <p>I started by doing a t-test on the donation amount based on treatment status, to see if there’s a statistically significant difference in the amount donated between the treatment group and the control group.</p>
-<div id="6af687ce" class="cell" data-execution_count="20">
+<div id="3b2707dd" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get donation amounts for treatment and control groups</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>treatment_amounts <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'amount'</span>]</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>control_amounts <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'amount'</span>]</span>
@@ -1831,7 +1831,7 @@ Central Limit Theorem
 </div>
 </div>
 <p>I made 4 histograms like those on slide 44 from our first class at sample sizes 50, 200, 500, and 1000 which show… I did this for sample size 50,200,500 and 1000 by taking the respective sample draws from each of the control and treatment distributions, and calculating the average difference between those draws. Then repeating that process 999 more times so I had 1000 averages. The zero is the “middle” of the distribution for all 4 histograms.</p>
-<div id="59b937bc" class="cell" data-execution_count="21">
+<div id="723db9d3" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate means and standard deviations for 'gave' </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>treatment_gave <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>control_gave <span class="op">=</span> data[data[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'gave'</span>]</span>
@@ -1850,7 +1850,7 @@ Central Limit Theorem
 Treatment Std Dev: 0.14681115226051514 Control Std Dev: 0.13243998017151457</code></pre>
 </div>
 </div>
-<div id="6953c8ea" class="cell" data-execution_count="22">
+<div id="f58bcbde" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Function to simulate differences</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_differences(sample_size, num_simulations):</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    differences <span class="op">=</span> []</span>
