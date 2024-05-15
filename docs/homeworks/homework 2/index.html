@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Rahul Kc">
-<meta name="dcterms.date" content="2024-05-01">
+<meta name="dcterms.date" content="2024-05-15">
 
 <title>Rahul - Poisson Regression Examples</title>
 <style>
@@ -104,10 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-
-
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -227,7 +224,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 1, 2024</p>
+      <p class="date">May 15, 2024</p>
     </div>
   </div>
   
@@ -262,7 +259,7 @@ Data
 </div>
 </div>
 </div>
-<div id="5f55ba42" class="cell" data-message="false" data-execution_count="1">
+<div id="74561f7e" class="cell" data-message="false" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
@@ -272,7 +269,7 @@ Data
 [notice] To update, run: C:\Users\kcrah\AppData\Local\Programs\Python\Python312\pythonw.exe -m pip install --upgrade pip</code></pre>
 </div>
 </div>
-<div id="db03cc92" class="cell" data-execution_count="2">
+<div id="80c4dcb0" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import libarary and data file</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
@@ -289,7 +286,7 @@ Data
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>air <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/airbnb.csv"</span>)</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>blue <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/blueprinty.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b1e05e9c" class="cell" data-execution_count="3">
+<div id="dc7296e1" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>blue.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -355,7 +352,7 @@ Data
 </div>
 </div>
 </div>
-<div id="7663b146" class="cell" data-execution_count="4">
+<div id="04c2de46" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>blue.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -438,7 +435,7 @@ Data
 </div>
 <p>First I compare histograms and means of number of patents by customer status. I observe that the mean of non customers (iscustomer=0) is 3.62 and the mean of customers (iscustomer=1) is 4.09.</p>
 <p>This means firms using the software have a higher average number of patents to firms that don’t.</p>
-<div id="8fd5a706" class="cell" data-execution_count="5">
+<div id="fffeb9e0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the mean number of patents for customers and non-customers</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> blue.groupby(<span class="st">'iscustomer'</span>)[<span class="st">'patents'</span>].mean()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -486,7 +483,7 @@ TODO
 </div>
 </div>
 <p>We see below that the number of non-customers is far greater than the number of customers for all regions. The ‘1’ representing customers and ‘0’ representing non-customers.</p>
-<div id="786eba2e" class="cell" data-execution_count="6">
+<div id="32ea2296" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Accounting missing data for cols 'region' and 'age'</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>blue[<span class="st">'region'</span>] <span class="op">=</span> blue[<span class="st">'region'</span>].fillna(<span class="st">'Unknown'</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>blue[<span class="st">'age'</span>] <span class="op">=</span> blue[<span class="st">'age'</span>].fillna(blue[<span class="st">'age'</span>].mean())</span>
@@ -526,7 +523,7 @@ Southwest   266   31</code></pre>
 </div>
 <p>Below we see that the mean age of non-customers (iscustomer=0) is 26.69 years, while the mean age of customers (iscustomer=1) is 24.15 years.</p>
 <p>This means that on avg. the firms using the software about 2.5 years younger.</p>
-<div id="2175bbb8" class="cell" data-execution_count="7">
+<div id="e3581aca" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#fig size</span></span>
@@ -587,7 +584,7 @@ TODO
 </div>
 </div>
 <p>The function below calulates the possion likelihood of Y given the lambda. Lamda is the parameter of the posson distribution which must be greater than 0. Y is the array of variable we’re counting. The function itself will return the likelihood of Y given lambda.</p>
-<div id="bd2c8927" class="cell" data-execution_count="8">
+<div id="fe2ea3b0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_likelihood(lambda_, Y):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lambda_ <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Lambda must be greater than 0"</span>)</span>
@@ -609,7 +606,7 @@ TODO
 <pre><code>Poisson Likelihood: 6.772991232302341e-06</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\kcrah\AppData\Local\Temp\ipykernel_10480\1078196594.py:6: DeprecationWarning: `np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`
+<pre><code>C:\Users\kcrah\AppData\Local\Temp\ipykernel_21892\1078196594.py:6: DeprecationWarning: `np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`
   probabilities = (np.exp(-lambda_) * lambda_**Y) / np.array([np.math.factorial(y) for y in Y])</code></pre>
 </div>
 </div>
@@ -632,7 +629,7 @@ TODO
 </div>
 </div>
 <p>Using the function to plot lambda on the horizontal axis and the log likelihood on the vertical axis for a range of lambdas using the observed number of patents as the input for Y gets the following.</p>
-<div id="204f5adb" class="cell" data-execution_count="9">
+<div id="20e307da" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
@@ -668,10 +665,10 @@ TODO
 </div>
 </div>
 <p>To Find the MLE I optimizied the likelihood functionsp.optimize().</p>
-<div id="6a080fd4" class="cell" data-execution_count="10">
+<div id="c18f53b9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> optimize.minimize(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    fun<span class="op">=</span>poisson_loglikelihood,  <span class="co"># function to minimize</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    x0<span class="op">=</span>[<span class="fl">1.0</span>],  <span class="co"># initial guess for lambda</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    fun<span class="op">=</span>poisson_loglikelihood,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    x0<span class="op">=</span>[<span class="fl">1.0</span>],  </span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>(Y,),  </span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    bounds<span class="op">=</span>[(<span class="fl">0.001</span>, <span class="va">None</span>)] </span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -687,7 +684,7 @@ Log-Likelihood at MLE: 43229.55041700371</code></pre>
 </div>
 <p>We see that the MLE = 0.001. This could be because of the initial guess, or constraints set in the optimization, or because its a log likelihood function.</p>
 <p>To solve this I did the following - The initial guess was changed to the mean of the observed data - The function was modified to return the negative log-likelihood because scipy.optimize is designed to minimize functions. Therefore a negative will to maximize the original log-likelihood.</p>
-<div id="55290c1b" class="cell" data-execution_count="11">
+<div id="761ce3ee" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_loglikelihood_neg(lambda_, Y):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lambda_ <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.inf  </span>
@@ -733,7 +730,7 @@ TODO
 </div>
 </div>
 </div>
-<div id="ab53fd4d" class="cell" data-execution_count="12">
+<div id="9c896fe6" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_regression_loglikelihood(beta, X, Y):</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Set linear combination with inputs and parameters</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    linear_combination <span class="op">=</span> X <span class="op">@</span> beta</span>
@@ -766,7 +763,7 @@ TODO
 </div>
 <p>First i used the function with sp.optimize() to find the MLE vector and the Hessian of the Poisson model with covariates. Using the Hessian to find standard errors of the beta parameter estimates and present a table of coefficients and standard errors.</p>
 <p>—————work——————————–</p>
-<div id="b787e4a7" class="cell" data-execution_count="13">
+<div id="6a307d20" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.optimize <span class="im">as</span> optimize</span>
@@ -872,13 +869,13 @@ TODO
 </div>
 </div>
 </div>
-<div id="0d26cc24" class="cell" data-execution_count="14">
+<div id="f47d2eb3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>air <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/airbnb.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exploratory-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
-<div id="037e5ea4" class="cell" data-execution_count="15">
+<div id="eba877d5" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(air.head())</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(air.isnull().<span class="bu">sum</span>())</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(air.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -949,12 +946,12 @@ min                  2.000000             2.000000
 max                 10.000000            10.000000  </code></pre>
 </div>
 </div>
-<div id="167eccf0" class="cell" data-execution_count="16">
+<div id="e75f3dd9" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert date columns to datetime</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>air[<span class="st">'last_scraped'</span>] <span class="op">=</span> pd.to_datetime(air[<span class="st">'last_scraped'</span>])</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>air[<span class="st">'host_since'</span>] <span class="op">=</span> pd.to_datetime(air[<span class="st">'host_since'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="313ed697" class="cell" data-execution_count="17">
+<div id="f85d601e" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Delete issing values and create a new DataFrame </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>air2 <span class="op">=</span> air.copy()</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>air2[<span class="st">'bathrooms'</span>].fillna(air[<span class="st">'bathrooms'</span>].median(), inplace<span class="op">=</span><span class="va">True</span>)</span>
@@ -970,35 +967,35 @@ max                 10.000000            10.000000  </code></pre>
 <span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>non_val_air2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\kcrah\AppData\Local\Temp\ipykernel_10480\1863144087.py:3: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+<pre><code>C:\Users\kcrah\AppData\Local\Temp\ipykernel_21892\1863144087.py:3: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
 
 
   air2['bathrooms'].fillna(air['bathrooms'].median(), inplace=True)
-C:\Users\kcrah\AppData\Local\Temp\ipykernel_10480\1863144087.py:4: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+C:\Users\kcrah\AppData\Local\Temp\ipykernel_21892\1863144087.py:4: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
 
 
   air2['bedrooms'].fillna(air['bedrooms'].median(), inplace=True)
-C:\Users\kcrah\AppData\Local\Temp\ipykernel_10480\1863144087.py:5: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+C:\Users\kcrah\AppData\Local\Temp\ipykernel_21892\1863144087.py:5: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
 
 
   air2['review_scores_cleanliness'].fillna(air['review_scores_cleanliness'].mean(), inplace=True)
-C:\Users\kcrah\AppData\Local\Temp\ipykernel_10480\1863144087.py:6: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+C:\Users\kcrah\AppData\Local\Temp\ipykernel_21892\1863144087.py:6: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
 
 
   air2['review_scores_location'].fillna(air['review_scores_location'].mean(), inplace=True)
-C:\Users\kcrah\AppData\Local\Temp\ipykernel_10480\1863144087.py:7: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+C:\Users\kcrah\AppData\Local\Temp\ipykernel_21892\1863144087.py:7: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
@@ -1026,14 +1023,14 @@ dtype: int64</code></pre>
 </div>
 <section id="regression-model" class="level4">
 <h4 class="anchored" data-anchor-id="regression-model">Regression Model</h4>
-<div id="81addfdd" class="cell" data-execution_count="18">
+<div id="c221cb7e" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns to remove spaces</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>air2.rename(columns<span class="op">=</span>{</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'room_type_Private room'</span>: <span class="st">'room_type_Private_room'</span>,</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'room_type_Shared room'</span>: <span class="st">'room_type_Shared_room'</span></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>}, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6c16756d" class="cell" data-execution_count="19">
+<div id="9e3f9acd" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(air2.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Index(['Unnamed: 0', 'id', 'days', 'last_scraped', 'host_since', 'room_type',
@@ -1043,7 +1040,7 @@ dtype: int64</code></pre>
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="ccca8e01" class="cell" data-execution_count="20">
+<div id="eb1845d0" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns to replace spaces with underscores</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>air2.columns <span class="op">=</span> [col.replace(<span class="st">' '</span>, <span class="st">'_'</span>) <span class="cf">for</span> col <span class="kw">in</span> air2.columns]</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1064,8 +1061,8 @@ Model:                            GLM   Df Residuals:                    40587
 Model Family:                 Poisson   Df Model:                            5
 Link Function:                    Log   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:            -6.7244e+05
-Date:                Wed, 01 May 2024   Deviance:                   1.2209e+06
-Time:                        18:04:26   Pearson chi2:                 1.80e+06
+Date:                Wed, 15 May 2024   Deviance:                   1.2209e+06
+Time:                        02:02:12   Pearson chi2:                 1.80e+06
 No. Iterations:                     6   Pseudo R-squ. (CS):             0.9462
 Covariance Type:            nonrobust                                         
 =============================================================================================
