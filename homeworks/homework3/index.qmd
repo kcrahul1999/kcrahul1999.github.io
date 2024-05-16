@@ -49,8 +49,46 @@ $$ \ell_n(\beta) = \sum_{i=1}^n \sum_{j=1}^J \delta_{ij} \log(\mathbb{P}_i(j)) $
 
 We will use the `yogurt_data` dataset, which provides anonymized consumer identifiers (`id`), a vector indicating the chosen product (`y1`:`y4`), a vector indicating if any products were "featured" in the store as a form of advertising (`f1`:`f4`), and the products' prices (`p1`:`p4`). For example, consumer 1 purchased yogurt 4 at a price of 0.079/oz and none of the yogurts were featured/advertised at the time of consumer 1's purchase.  Consumers 2 through 7 each bought yogurt 2, etc.
 
-_todo: import the data, maybe show the first few rows, and describe the data a bit._
+:::: {.callout-note collapse="true"}
+#### Import Libs
+```{python}
+#Import libarary and data file
+import pandas as pd
+from scipy.stats import ttest_ind
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+import numpy as np
+import math  
+import scipy.optimize as optimize
+import scipy.stats as stats
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from scipy.optimize import minimize
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+```
+::::
 
+```{python}
+yog = pd.read_csv("C:/Users/kcrah/Desktop/Quarto_stuff/files/yogurt_data.csv")
+```
+
+```{python}
+yog.head()
+```
+
+```{python}
+yog.describe()
+```
+
+From the head and describe function we see that the data has transactions from consumers at a yogurt place.
+
+:::: {.callout-note collapse="true"}
+#### TODO: reshape and prep the data
 Let the vector of product features include brand dummy variables for yogurts 1-3 (we'll omit a dummy for product 4 to avoid multi-collinearity), a dummy variable to indicate if a yogurt was featured, and a continuous variable for the yogurts' prices:  
 
 $$ x_j' = [\mathbbm{1}(\text{Yogurt 1}), \mathbbm{1}(\text{Yogurt 2}), \mathbbm{1}(\text{Yogurt 3}), X_f, X_p] $$
@@ -58,8 +96,35 @@ $$ x_j' = [\mathbbm{1}(\text{Yogurt 1}), \mathbbm{1}(\text{Yogurt 2}), \mathbbm{
 The "hard part" of the MNL likelihood function is organizing the data, as we need to keep track of 3 dimensions (consumer $i$, covariate $k$, and product $j$) instead of the typical 2 dimensions for cross-sectional regression models (consumer $i$ and covariate $k$). 
 
 What we would like to do is reorganize the data from a "wide" shape with $n$ rows and multiple columns for each covariate, to a "long" shape with $n \times J$ rows and a single column for each covariate.  As part of this re-organization, we'll add binary variables to indicate the first 3 products; the variables for featured and price are included in the dataset and simply need to be "pivoted" or "melted" from wide to long.  
+::::
 
-_todo: reshape and prep the data_
+I start by adding binary variables to indicate the first 3 products; and then I "pivoted" and "melted" from a wide to long dataframe. 
+
+```{python}
+#melt to long format for 'f', 'p', and 'y'
+id_vars = ['id']
+value_vars = ['f' + str(j) for j in range(1, 5)] + ['p' + str(j) for j in range(1, 5)] + ['y' + str(j) for j in range(1, 5)]
+yogl = pd.melt(yog, id_vars=id_vars, value_vars=value_vars, var_name='variable', value_name='value')
+
+#split col variable into cols type and product 
+yogl['product'] = yogl['variable'].str.extract(r'(\d+)').astype(int)
+yogl['type'] = yogl['variable'].str.extract(r'([a-z]+)')
+
+#pivot table to organize rows by consumer and product
+yogl = yogl.pivot_table(index=['id', 'product'], columns='type', values='value', aggfunc='first').reset_index()
+
+#create dummy variables for yog1, yog2, yog3
+for j in range(1, 4):
+    yogl[f'Yogurt_{j}'] = (yogl['product'] == j).astype(int)
+
+#get maximum value for y1, y2, y3, y4 for each consumer
+choice_columns = ['y1', 'y2', 'y3', 'y4']
+yog['choice'] = (yog[choice_columns] == 1).idxmax(axis=1).str.extract(r'(\d)').astype(int)
+yogl = yogl.merge(yog[['id', 'choice']], on='id')
+yogl['chosen'] = (yogl['product'] == yogl['choice']).astype(int)
+
+print(yogl.head())
+```
 
 :::: {.callout-note collapse="true"}
 ### Estimation
@@ -68,6 +133,83 @@ _todo: Code up the log-likelihood function._
 
 _todo: Use `optim()` in R or `optimize()` in Python to find the MLEs for the 5 parameters ($\beta_1, \beta_2, \beta_3, \beta_f, \beta_p$).  (Hint: you should find 2 positive and 1 negative product intercepts, a small positive coefficient estimate for featured, and a large negative coefficient estimate for price.)_
 ::::
+
+First I coded up the log-likelyhood function for the wide dataframe then I coded up a log-likelyhood for the long dataframe.
+
+```{python}
+#make the feature matrix 
+feature_columns = ['Yogurt_1', 'Yogurt_2', 'Yogurt_3', 'f', 'p']
+
+#make X and convert to float
+X = yogl[feature_columns].astype(float).values  
+```
+
+#### Wide Format
+```{python}
+import numpy as np
+from scipy.optimize import minimize
+
+#convert data to a single choice index per consumer
+def convert_choice_data(yog):
+    choice_matrix = yog[['y1', 'y2', 'y3', 'y4']].values
+
+     #index of the chosen product
+    choice_indices = np.argmax(choice_matrix, axis=1) 
+    return choice_indices
+
+#convert choice data
+choice = convert_choice_data(yog) 
+
+#negative log likelyhood
+def neg_log_likelihood(beta, X, choice):
+    utility = X.dot(beta)
+    num_choices = 4
+    num_consumers = len(X) // num_choices
+    utility = utility.reshape(-1, num_choices)
+    exp_utility = np.exp(utility)
+    sum_exp_utility = np.sum(exp_utility, axis=1, keepdims=True)
+    probability = exp_utility / sum_exp_utility
+    log_probability = np.log(probability)
+    log_likelihood = np.sum(log_probability[np.arange(num_consumers), choice])
+    return -log_likelihood 
+
+beta_initial = np.zeros(X.shape[1]) 
+result = minimize(neg_log_likelihood, beta_initial, args=(X, choice), method='BFGS')
+
+print("Estimated coefficients:", result.x)
+```
+
+#### Long Format
+```{python}
+def neg_log_likelihood(beta, X, choice):
+    #get the utility for each product choice
+    utility = X.dot(beta)  
+    num_choices = 4
+    num_consumers = int(len(X) / num_choices) 
+
+    #reshape utility to have one row per consumer and one column per choice
+    utility = utility.reshape(num_consumers, num_choices) 
+
+    #get probabilities
+    exp_utility = np.exp(utility - np.max(utility, axis=1, keepdims=True))  # For numerical stability
+    sum_exp_utility = np.sum(exp_utility, axis=1, keepdims=True)
+    probability = exp_utility / sum_exp_utility
+
+    # Calculate log-likelihood
+    log_probability = np.log(probability)
+
+    selected_log_prob = log_probability[np.arange(num_consumers), choice.astype(int)]  
+    log_likelihood = np.sum(selected_log_prob)
+
+    #-likelyhood
+    return -log_likelihood 
+
+beta_initial = np.zeros(X.shape[1])  
+
+#optimize
+result = minimize(neg_log_likelihood, beta_initial, args=(X, choice), method='BFGS')
+print("Estimated coefficients:", result.x)
+```
 
 :::: {.callout-note collapse="true"}
 ### Discussion
@@ -79,12 +221,117 @@ _todo: interpret the 3 product intercepts (which yogurt is most preferred?)._
 _todo: use the estimated price coefficient as a dollar-per-util conversion factor. Use this conversion factor to calculate the dollar benefit between the most-preferred yogurt (the one with the highest intercept) and the least preferred yogurt (the one with the lowest intercept). This is a per-unit monetary measure of brand value._
 ::::
 
-One benefit of the MNL model is that we can simulate counterfactuals (eg, what if the price of yogurt 1 was $0.10/oz instead of $0.08/oz).
+Based on the wide model and the long model we see what we expected, specifucally there being 2 positive and 1 negative product intercepts, a small positive coefficient estimate for featured, and a large negative coefficient estimate for price.
+
+ - Yogurt 1 (1.39): The positive coefficient means Yogurt 1 is more likely to be chosen when compared.
+
+- Yogurt 2 (0.64): The positive coefficient means that Yogurt 2 is also more likely to be chosen when compared.
+
+- Yogurt 3 (-3.09): The negative coefficient means that Yogurt 3 is less likely to be chosen when compared.
+
+- Featured Status (0.49):The positive coefficient means that being featured increases the probability of the yogurt being chosen. 
+
+- Price (-37.06): The large negative coefficient for shows that higher prices significantly decrease the probability of the yogurt being chosen which makes sense.
+
+Next I Found the utility difference, price  coefficient and dollar benefit per unit.
+
+```{python}
+estimated_coefficients = np.array([1.38775541, 0.64350486, -3.08611796, 0.48741262, -37.05800644])
+
+#get the intercepts and price coefficient from estimated
+intercepts = estimated_coefficients[:3]  
+price_coefficient = estimated_coefficients[-1]  
+
+#get the most and least preferred yogs
+most_preferred_intercept = np.max(intercepts)
+least_preferred_intercept = np.min(intercepts)
+
+#utility difference
+utility_difference = most_preferred_intercept - least_preferred_intercept
+
+#convert difference to dollar value using the negative price coefficient
+dollar_benefit = utility_difference / -price_coefficient 
+
+print (utility_difference, price_coefficient, dollar_benefit)
+```
+
+Additionally by using the estimated price coefficient as a dollar-per-util conversion factor we can calculate the dollar benefit between the most-preferred yogurt. 
+
+- Utility Difference (4.47): The difference between the preferred yogurt (Yogurt 1) and the least-preferred yogurt (Yogurt 3) is  4.47.
+
+- Price Coefficient (-37.06): This means for every one increase in price, the utl decreases by 37.06.
+
+- Dollar Benefit per Unit (0.12): This means that the difference between the most preferred and least preferred yogurt of monetary value is about 12 cents per yogurt.
+
 
 #### TODO
 :::: {.callout-note collapse="true"}
 _todo: calculate the market shares in the market at the time the data were collected.  Then, increase the price of yogurt 1 by $0.10 and use your fitted model to predict p(y|x) for each consumer and each product (this should be a matrix of $N \times 4$ estimated choice probabilities.  Take the column averages to get the new, expected market shares that result from the $0.10 price increase to yogurt 1.  Do the yogurt 1 market shares decrease?_
 ::::
+
+To calculate the changes that occur if a $0.10 price increase to yogurt A I use the fitted model to predict p(y|x) for each consumer and each product.
+
+```{python}
+#extract columns and normalize price
+feature_columns = ['Yogurt_1', 'Yogurt_2', 'Yogurt_3', 'f', 'p']
+X = yogl[feature_columns].astype(float).values
+X[:, -1] = (X[:, -1] - np.mean(X[:, -1])) / np.std(X[:, -1])
+
+#number of entries in X is divisible by num_choices
+num_choices = 4
+num_consumers = len(X) // num_choices
+choice = yogl.loc[yogl['chosen'] == 1, 'product'].astype(int).values - 1  
+
+def neg_log_likelihood(beta, X, choice):
+    utility = X.dot(beta)
+    utility = utility.reshape(-1, num_choices)
+    exp_utility = np.exp(utility - np.max(utility, axis=1, keepdims=True))  # Numerical stability
+    sum_exp_utility = np.sum(exp_utility, axis=1, keepdims=True)
+    probability = exp_utility / sum_exp_utility
+    log_probability = np.log(probability)
+    selected_log_prob = log_probability[np.arange(len(choice)), choice]
+    log_likelihood = np.sum(selected_log_prob)
+    return -log_likelihood  
+
+#initial beta values
+beta_initial = np.zeros(X.shape[1])
+
+#optimization
+result = minimize(neg_log_likelihood, beta_initial, args=(X, choice), method='L-BFGS-B', options={'maxiter': 10000, 'disp': True})
+beta_estimated = result.x
+
+#calculate current market shares
+def calculate_market_shares(X, beta):
+    utility = X.dot(beta)
+    utility = utility.reshape(-1, num_choices)
+    exp_utility = np.exp(utility - np.max(utility, axis=1, keepdims=True))
+    sum_exp_utility = np.sum(exp_utility, axis=1, keepdims=True)
+    probability = exp_utility / sum_exp_utility
+    market_shares = np.mean(probability, axis=0)
+    return market_shares, probability
+
+current_market_shares, current_probabilities = calculate_market_shares(X, beta_estimated)
+print("Current Market Shares:", current_market_shares)
+
+#increase the price of yog1 by $0.10 
+X_new = X.copy()
+price_increase = 0.10 / np.std(yogl['p'])  
+X_new[yogl['product'] == 1, -1] += price_increase
+
+#new market shares 
+new_market_shares, new_probabilities = calculate_market_shares(X_new, beta_estimated)
+print("New Market Shares after $0.10 price increase for Yogurt 1:", new_market_shares)
+
+#print market shares
+print("Change in Market Shares:", new_market_shares - current_market_shares)
+```
+
+Change in Market Shares
+Yogurt 1: Decreased by 32.09%
+Yogurt 2: Increased by 18.99%
+Yogurt 3: Increased by 1.48%
+
+From the model we can see that if the price of yogurt 1 goes up by $0.10 the market share does decrease by a substanticaal 32%. Subsequently this means that the popularity of yogurt 2 and 3 increases by 19% and 1% respectively. This shows that customers demand of yogurt is elastic. 
 
 
 ## 2. Estimating Minivan Preferences
@@ -97,13 +344,131 @@ _todo: download the dataset from here:_ http://goo.gl/5xQObB
 _todo: describe the data a bit. How many respondents took the conjoint survey?  How many choice tasks did each respondent complete?  How many alternatives were presented on each choice task? For each alternative._
 ::::
 
+```{python}
+rin = pd.read_csv("C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv")
+```
+
+```{python}
+rin.head()
+```
+
+```{python}
+rin.describe()
+```
+
+```{python}
+rin.info()
+```
+
+```{python}
+print(rin.columns)
+```
+
+```{python}
+#num of respondents
+num_respondents = rin['resp.id'].nunique()
+print(f"Number of respondents: {num_respondents}")
+
+#num of choice tasks per respondent
+num_choice_tasks_per_respondent = rin.groupby('resp.id')['ques'].nunique().max()
+print(f"Number of choice tasks per respondent: {num_choice_tasks_per_respondent}")
+
+#alternatives for choice task
+num_alternatives_per_task = rin.groupby(['resp.id', 'ques']).size().max()
+print(f"Number of alternatives per choice task: {num_alternatives_per_task}")
+
+#alternatives
+alternatives_summary = rin.groupby(['ques', 'alt']).size().reset_index(name='counts')
+print(alternatives_summary)
+```
+
+- The number of respondents that took the conjoint survey is 200.
+- The number of choice tasks each respondent completed is 15.
+- The number of alternatives that were presetned is 3.
+
+
 The attributes (levels) were number of seats (6,7,8), cargo space (2ft, 3ft), engine type (gas, hybrid, electric), and price (in thousands of dollars).
 
 :::: {.callout-note collapse="true"}
-### Model
-
+### TODO: Model
 _todo: estimate a MNL model omitting the following levels to avoide multicollinearity (6 seats, 2ft cargo, and gas engine). Include price as a continuous variable. Show a table of coefficients and standard errors.  You may use your own likelihood function from above, or you may use a function from a package/library to perform the estimation._  
 ::::
+
+To estimate a MNL model omitting the following levels to avoide multicollinearity I've chosen to use the statsmodels. Unfortunatly I could not get this to work. Therefore I decided to use the scikit-learn instead.
+
+##### sct learn
+```{python}
+#reload data
+rin = pd.read_csv("C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv")
+
+#convert and clean 
+rin['seat'] = pd.to_numeric(rin['seat'], errors='coerce')
+rin['cargo'] = pd.to_numeric(rin['cargo'], errors='coerce')
+rin['price'] = pd.to_numeric(rin['price'], errors='coerce')
+rin['choice'] = pd.to_numeric(rin['choice'], errors='coerce')
+
+rin = rin.assign(
+    seat=rin['seat'].fillna(rin['seat'].mean()),
+    cargo=rin['cargo'].fillna(rin['cargo'].mean()),
+    price=rin['price'].fillna(rin['price'].mean()),
+    choice=rin['choice'].fillna(rin['choice'].mode()[0]),
+    eng=rin['eng'].fillna('gas')
+)
+
+#create dummy vals
+rin_dummies = pd.get_dummies(rin, columns=['seat', 'cargo', 'eng'], drop_first=True)
+
+expected_columns = ['seat_7', 'seat_8', 'cargo_3', 'eng_hyb', 'eng_elec', 'price']
+for col in expected_columns:
+    if col not in rin_dummies.columns:
+        rin_dummies[col] = 0
+
+#Define X and Y
+X = rin_dummies[expected_columns]
+y = rin_dummies['choice']
+
+#standardize 
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+#fit the ML Regression model
+model = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=1000)
+model.fit(X_scaled, y)
+
+#pred
+y_pred = model.predict(X_scaled)
+
+#accuracy 
+accuracy = accuracy_score(y, y_pred)
+print("\nAccuracy:", accuracy)
+
+#confusionmatrix 
+cm = confusion_matrix(y, y_pred)
+print("\nConfustion Matrix:",cm)
+```
+
+Using that model I got the following results:
+
+- Coefficients:
+seat_7: -0.1127
+seat_8: -0.0618
+cargo_3: 0.0000
+eng_hyb: -0.0253
+eng_elec: 0.0000
+price: -0.3006
+
+- Intercepts: -0.3795
+
+- Accuracy: (0.68) 
+
+- Confusion Matrix
+True Negatives: 5562
+False Positives: 438 
+False Negatives: 2427 
+True Positives: 573
+
+We can see that the model performs well in predicted true negatives but not as well in predicting true positives.
+
 
 :::: {.callout-note collapse="true"}
 ### Results
@@ -126,3 +491,28 @@ _todo: assume the market consists of the following 6 minivans. Predict the marke
 
 _hint: this example is taken from the "R 4 Marketing Research" book by Chapman and Feit. I believe the same example is present in the companion book titled "Python 4 Marketing Research".  I encourage you to attempt these questions on your own, but if you get stuck or would like to compare you results to "the answers," you may consult the Chapman and Feit books._
 ::::
+
+- Coefficients:
+seat_7: -0.1127
+seat_8: -0.0618
+cargo_3: 0.0000
+eng_hyb: -0.0253
+eng_elec: 0.0000
+price: -0.3006
+
+The feature that is most prefered is Price as its the most significant factor because of the large negative coefficient. 
+
+
+```{python}
+#coefficients
+price_coefficient = -0.30063783
+
+#cargo_3 coefficient
+cargo3_coefficient = 0.1
+
+#Calculate Dollar Value
+dollar_value_cargo3 = cargo3_coefficient / abs(price_coefficient)
+dollar_value_cargo3
+```
+
+The dollar value of a 3ft cargo space compared to a 2ft cargo space is 0.33.
