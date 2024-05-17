@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Rahul Kc">
-<meta name="dcterms.date" content="2024-05-15">
+<meta name="dcterms.date" content="2024-05-16">
 
 <title>Rahul - Multinomial Logit Examples</title>
 <style>
@@ -222,7 +222,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 15, 2024</p>
+      <p class="date">May 16, 2024</p>
     </div>
   </div>
   
@@ -271,7 +271,7 @@ Import Libs
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="fd473ba1" class="cell" data-execution_count="1">
+<div id="30d32024" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import libarary and data file</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
@@ -294,12 +294,12 @@ Import Libs
 </div>
 </div>
 </div>
-<div id="846fbc01" class="cell" data-execution_count="2">
+<div id="862272b7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>yog <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/yogurt_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2e91ecb1" class="cell" data-execution_count="3">
+<div id="8b4be838" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>yog.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <div>
 
@@ -411,9 +411,9 @@ Import Libs
 </div>
 </div>
 </div>
-<div id="6040b9ff" class="cell" data-execution_count="4">
+<div id="ddee5c85" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>yog.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <div>
 
@@ -573,7 +573,7 @@ Import Libs
 </div>
 </div>
 </div>
-<p>From the head and describe function we see that the data has transactions from consumers at a yogurt place.</p>
+<p>From the head and describe function we see that the data has transactions from consumers at a yogurt place. The yogurt place has 3 yogurt flavors.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -593,9 +593,9 @@ TODO: reshape and prep the data
 </div>
 </div>
 </div>
-<p>I start by adding binary variables to indicate the first 3 products; and then I “pivoted” and “melted” from a wide to long dataframe.</p>
-<div id="11281c56" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#melt to long format for 'f', 'p', and 'y'</span></span>
+<p>I start by adding binary variables to indicate the first 3 products; and then I “pivoted” and “melted” from a wide dataframe to long dataframe for further data analysis.</p>
+<div id="58980786" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#melt to long format</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>id_vars <span class="op">=</span> [<span class="st">'id'</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>value_vars <span class="op">=</span> [<span class="st">'f'</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)] <span class="op">+</span> [<span class="st">'p'</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)] <span class="op">+</span> [<span class="st">'y'</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)]</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>yogl <span class="op">=</span> pd.melt(yog, id_vars<span class="op">=</span>id_vars, value_vars<span class="op">=</span>value_vars, var_name<span class="op">=</span><span class="st">'variable'</span>, value_name<span class="op">=</span><span class="st">'value'</span>)</span>
@@ -645,7 +645,7 @@ Estimation
 </div>
 </div>
 <p>First I coded up the log-likelyhood function for the wide dataframe then I coded up a log-likelyhood for the long dataframe.</p>
-<div id="88ab474b" class="cell" data-execution_count="6">
+<div id="f63a9586" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make the feature matrix </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>feature_columns <span class="op">=</span> [<span class="st">'Yogurt_1'</span>, <span class="st">'Yogurt_2'</span>, <span class="st">'Yogurt_3'</span>, <span class="st">'f'</span>, <span class="st">'p'</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -654,74 +654,66 @@ Estimation
 </div>
 <section id="wide-format" class="level4">
 <h4 class="anchored" data-anchor-id="wide-format">Wide Format</h4>
-<div id="d377b137" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data to a single choice index per consumer</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_choice_data(yog):</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    choice_matrix <span class="op">=</span> yog[[<span class="st">'y1'</span>, <span class="st">'y2'</span>, <span class="st">'y3'</span>, <span class="st">'y4'</span>]].values</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>     <span class="co">#index of the chosen product</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    choice_indices <span class="op">=</span> np.argmax(choice_matrix, axis<span class="op">=</span><span class="dv">1</span>) </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> choice_indices</span>
+<div id="e372fad4" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data to a single choice index per consumer</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_choice_data(yog):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    choice_matrix <span class="op">=</span> yog[[<span class="st">'y1'</span>, <span class="st">'y2'</span>, <span class="st">'y3'</span>, <span class="st">'y4'</span>]].values</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="co">#index of the chosen product</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    choice_indices <span class="op">=</span> np.argmax(choice_matrix, axis<span class="op">=</span><span class="dv">1</span>) </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> choice_indices</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#convert choice data</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> convert_choice_data(yog) </span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#convert choice data</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> convert_choice_data(yog) </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#negative log likelyhood</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    num_choices <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    num_consumers <span class="op">=</span> <span class="bu">len</span>(X) <span class="op">//</span> num_choices</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(<span class="op">-</span><span class="dv">1</span>, num_choices)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility)</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    log_probability <span class="op">=</span> np.log(probability)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(log_probability[np.arange(num_consumers), choice])</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood </span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>beta_initial <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>]) </span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, beta_initial, args<span class="op">=</span>(X, choice), method<span class="op">=</span><span class="st">'BFGS'</span>)</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Estimated coefficients:"</span>, result.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Estimated coefficients: [  1.38775465   0.64350501  -3.08611585   0.48741308 -37.05797004]</code></pre>
-</div>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#negative log likelyhood</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    num_choices <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    num_consumers <span class="op">=</span> <span class="bu">len</span>(X) <span class="op">//</span> num_choices</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(<span class="op">-</span><span class="dv">1</span>, num_choices)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    log_probability <span class="op">=</span> np.log(probability)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(log_probability[np.arange(num_consumers), choice])</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>beta_initial <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>]) </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, beta_initial, args<span class="op">=</span>(X, choice), method<span class="op">=</span><span class="st">'BFGS'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="long-format" class="level4">
 <h4 class="anchored" data-anchor-id="long-format">Long Format</h4>
-<div id="d6f4e70b" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get the utility for each product choice</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)  </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    num_choices <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    num_consumers <span class="op">=</span> <span class="bu">int</span>(<span class="bu">len</span>(X) <span class="op">/</span> num_choices) </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#reshape utility to have one row per consumer and one column per choice</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(num_consumers, num_choices) </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get probabilities</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility <span class="op">-</span> np.<span class="bu">max</span>(utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))  <span class="co"># For numerical stability</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate log-likelihood</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    log_probability <span class="op">=</span> np.log(probability)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    selected_log_prob <span class="op">=</span> log_probability[np.arange(num_consumers), choice.astype(<span class="bu">int</span>)]  </span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(selected_log_prob)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#-likelyhood</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood </span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>beta_initial <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>])  </span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#optimize</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, beta_initial, args<span class="op">=</span>(X, choice), method<span class="op">=</span><span class="st">'BFGS'</span>)</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Estimated coefficients:"</span>, result.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d207e60c" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get the utility for each product choice</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)  </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    num_choices <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    num_consumers <span class="op">=</span> <span class="bu">int</span>(<span class="bu">len</span>(X) <span class="op">/</span> num_choices) </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#reshape utility to have one row per consumer and one column per choice</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(num_consumers, num_choices) </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get probabilities</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility <span class="op">-</span> np.<span class="bu">max</span>(utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))  <span class="co"># For numerical stability</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate log-likelihood</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    log_probability <span class="op">=</span> np.log(probability)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    selected_log_prob <span class="op">=</span> log_probability[np.arange(num_consumers), choice.astype(<span class="bu">int</span>)]  </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(selected_log_prob)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">#-likelyhood</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>beta_initial <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>])  </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#optimize</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, beta_initial, args<span class="op">=</span>(X, choice), method<span class="op">=</span><span class="st">'BFGS'</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Estimated coefficients:"</span>, result.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated coefficients: [  1.38775541   0.64350486  -3.08611796   0.48741262 -37.05800644]</code></pre>
 </div>
@@ -753,24 +745,24 @@ Discussion
 <li><p>Price (-37.06): The large negative coefficient for shows that higher prices significantly decrease the probability of the yogurt being chosen which makes sense.</p></li>
 </ul>
 <p>Next I Found the utility difference, price coefficient and dollar benefit per unit.</p>
-<div id="aef35d54" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>estimated_coefficients <span class="op">=</span> np.array([<span class="fl">1.38775541</span>, <span class="fl">0.64350486</span>, <span class="op">-</span><span class="fl">3.08611796</span>, <span class="fl">0.48741262</span>, <span class="op">-</span><span class="fl">37.05800644</span>])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#get the intercepts and price coefficient from estimated</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>intercepts <span class="op">=</span> estimated_coefficients[:<span class="dv">3</span>]  </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>price_coefficient <span class="op">=</span> estimated_coefficients[<span class="op">-</span><span class="dv">1</span>]  </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#get the most and least preferred yogs</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>most_preferred_intercept <span class="op">=</span> np.<span class="bu">max</span>(intercepts)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>least_preferred_intercept <span class="op">=</span> np.<span class="bu">min</span>(intercepts)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#utility difference</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>utility_difference <span class="op">=</span> most_preferred_intercept <span class="op">-</span> least_preferred_intercept</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#convert difference to dollar value using the negative price coefficient</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>dollar_benefit <span class="op">=</span> utility_difference <span class="op">/</span> <span class="op">-</span>price_coefficient </span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (utility_difference, price_coefficient, dollar_benefit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="dcf3ca7b" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>estimated_coefficients <span class="op">=</span> np.array([<span class="fl">1.38775541</span>, <span class="fl">0.64350486</span>, <span class="op">-</span><span class="fl">3.08611796</span>, <span class="fl">0.48741262</span>, <span class="op">-</span><span class="fl">37.05800644</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#get the intercepts and price coefficient from estimated</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>intercepts <span class="op">=</span> estimated_coefficients[:<span class="dv">3</span>]  </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>price_coefficient <span class="op">=</span> estimated_coefficients[<span class="op">-</span><span class="dv">1</span>]  </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#get the most and least preferred yogs</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>most_preferred_intercept <span class="op">=</span> np.<span class="bu">max</span>(intercepts)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>least_preferred_intercept <span class="op">=</span> np.<span class="bu">min</span>(intercepts)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#utility difference</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>utility_difference <span class="op">=</span> most_preferred_intercept <span class="op">-</span> least_preferred_intercept</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#convert difference to dollar value using the negative price coefficient</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>dollar_benefit <span class="op">=</span> utility_difference <span class="op">/</span> <span class="op">-</span>price_coefficient </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (utility_difference, price_coefficient, dollar_benefit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4.47387337 -37.05800644 0.12072622895253617</code></pre>
 </div>
@@ -781,9 +773,8 @@ Discussion
 <li><p>Price Coefficient (-37.06): This means for every one increase in price, the utl decreases by 37.06.</p></li>
 <li><p>Dollar Benefit per Unit (0.12): This means that the difference between the most preferred and least preferred yogurt of monetary value is about 12 cents per yogurt.</p></li>
 </ul>
-</section>
-<section id="todo" class="level4">
-<h4 class="anchored" data-anchor-id="todo">TODO</h4>
+<section id="todo-adjusted-market-share" class="level5">
+<h5 class="anchored" data-anchor-id="todo-adjusted-market-share">TODO: Adjusted Market Share</h5>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -801,67 +792,73 @@ Note
 </div>
 </div>
 <p>To calculate the changes that occur if a $0.10 price increase to yogurt A I use the fitted model to predict p(y|x) for each consumer and each product.</p>
-<div id="4c11ce2f" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract columns and normalize price</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>feature_columns <span class="op">=</span> [<span class="st">'Yogurt_1'</span>, <span class="st">'Yogurt_2'</span>, <span class="st">'Yogurt_3'</span>, <span class="st">'f'</span>, <span class="st">'p'</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> yogl[feature_columns].astype(<span class="bu">float</span>).values</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>X[:, <span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> (X[:, <span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> np.mean(X[:, <span class="op">-</span><span class="dv">1</span>])) <span class="op">/</span> np.std(X[:, <span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#number of entries in X is divisible by num_choices</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>num_choices <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>num_consumers <span class="op">=</span> <span class="bu">len</span>(X) <span class="op">//</span> num_choices</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> yogl.loc[yogl[<span class="st">'chosen'</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">'product'</span>].astype(<span class="bu">int</span>).values <span class="op">-</span> <span class="dv">1</span>  </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(<span class="op">-</span><span class="dv">1</span>, num_choices)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility <span class="op">-</span> np.<span class="bu">max</span>(utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))  <span class="co"># Numerical stability</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    log_probability <span class="op">=</span> np.log(probability)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    selected_log_prob <span class="op">=</span> log_probability[np.arange(<span class="bu">len</span>(choice)), choice]</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(selected_log_prob)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood  </span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#initial beta values</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>beta_initial <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>])</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#optimization</span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, beta_initial, args<span class="op">=</span>(X, choice), method<span class="op">=</span><span class="st">'L-BFGS-B'</span>, options<span class="op">=</span>{<span class="st">'maxiter'</span>: <span class="dv">10000</span>, <span class="st">'disp'</span>: <span class="va">True</span>})</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>beta_estimated <span class="op">=</span> result.x</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate current market shares</span></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_market_shares(X, beta):</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(<span class="op">-</span><span class="dv">1</span>, num_choices)</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility <span class="op">-</span> np.<span class="bu">max</span>(utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    market_shares <span class="op">=</span> np.mean(probability, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> market_shares, probability</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>current_market_shares, current_probabilities <span class="op">=</span> calculate_market_shares(X, beta_estimated)</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Current Market Shares:"</span>, current_market_shares)</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="co">#increase the price of yog1 by $0.10 </span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>X_new <span class="op">=</span> X.copy()</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>price_increase <span class="op">=</span> <span class="fl">0.10</span> <span class="op">/</span> np.std(yogl[<span class="st">'p'</span>])  </span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>X_new[yogl[<span class="st">'product'</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>] <span class="op">+=</span> price_increase</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="co">#new market shares </span></span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>new_market_shares, new_probabilities <span class="op">=</span> calculate_market_shares(X_new, beta_estimated)</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"New Market Shares after $0.10 price increase for Yogurt 1:"</span>, new_market_shares)</span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="co">#print market shares</span></span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Change in Market Shares:"</span>, new_market_shares <span class="op">-</span> current_market_shares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="416407ec" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract columns and normalize price</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>feature_columns <span class="op">=</span> [<span class="st">'Yogurt_1'</span>, <span class="st">'Yogurt_2'</span>, <span class="st">'Yogurt_3'</span>, <span class="st">'f'</span>, <span class="st">'p'</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> yogl[feature_columns].astype(<span class="bu">float</span>).values</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>X[:, <span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> (X[:, <span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> np.mean(X[:, <span class="op">-</span><span class="dv">1</span>])) <span class="op">/</span> np.std(X[:, <span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#number of entries in X is divisible by num_choices</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>num_choices <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>num_consumers <span class="op">=</span> <span class="bu">len</span>(X) <span class="op">//</span> num_choices</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> yogl.loc[yogl[<span class="st">'chosen'</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">'product'</span>].astype(<span class="bu">int</span>).values <span class="op">-</span> <span class="dv">1</span>  </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(<span class="op">-</span><span class="dv">1</span>, num_choices)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility <span class="op">-</span> np.<span class="bu">max</span>(utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))  <span class="co"># Numerical stability</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    log_probability <span class="op">=</span> np.log(probability)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    selected_log_prob <span class="op">=</span> log_probability[np.arange(<span class="bu">len</span>(choice)), choice]</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    log_likelihood <span class="op">=</span> np.<span class="bu">sum</span>(selected_log_prob)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>log_likelihood  </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#initial beta values</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>beta_initial <span class="op">=</span> np.zeros(X.shape[<span class="dv">1</span>])</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#optimization</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, beta_initial, args<span class="op">=</span>(X, choice), method<span class="op">=</span><span class="st">'L-BFGS-B'</span>, options<span class="op">=</span>{<span class="st">'maxiter'</span>: <span class="dv">10000</span>, <span class="st">'disp'</span>: <span class="va">True</span>})</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>beta_estimated <span class="op">=</span> result.x</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate current market shares</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_market_shares(X, beta):</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> utility.reshape(<span class="op">-</span><span class="dv">1</span>, num_choices)</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    exp_utility <span class="op">=</span> np.exp(utility <span class="op">-</span> np.<span class="bu">max</span>(utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    sum_exp_utility <span class="op">=</span> np.<span class="bu">sum</span>(exp_utility, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    probability <span class="op">=</span> exp_utility <span class="op">/</span> sum_exp_utility</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    market_shares <span class="op">=</span> np.mean(probability, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> market_shares, probability</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>current_market_shares, current_probabilities <span class="op">=</span> calculate_market_shares(X, beta_estimated)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Current Market Shares:"</span>, current_market_shares)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="co">#increase the price of yog1 by $0.10 </span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>X_new <span class="op">=</span> X.copy()</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>price_increase <span class="op">=</span> <span class="fl">0.10</span> <span class="op">/</span> np.std(yogl[<span class="st">'p'</span>])  </span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>X_new[yogl[<span class="st">'product'</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>] <span class="op">+=</span> price_increase</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co">#new market shares </span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>new_market_shares, new_probabilities <span class="op">=</span> calculate_market_shares(X_new, beta_estimated)</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"New Yogurt 1 market share:"</span>, new_market_shares)</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="co">#change in market shares</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Change in Market Shares:"</span>, new_market_shares <span class="op">-</span> current_market_shares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Current Market Shares: [0.34197542 0.40123472 0.02921837 0.22757149]
-New Market Shares after $0.10 price increase for Yogurt 1: [0.02111774 0.5911454  0.04404057 0.3436963 ]
+New Yogurt 1 market share: [0.02111774 0.5911454  0.04404057 0.3436963 ]
 Change in Market Shares: [-0.32085768  0.18991068  0.01482219  0.11612481]</code></pre>
 </div>
 </div>
-<p>Change in Market Shares Yogurt 1: Decreased by 32.09% Yogurt 2: Increased by 18.99% Yogurt 3: Increased by 1.48%</p>
+<p>Change in Market Shares</p>
+<ul>
+<li><p>Yogurt 1: Decreased by 32.09%</p></li>
+<li><p>Yogurt 2: Increased by 18.99%</p></li>
+<li><p>Yogurt 3: Increased by 1.48%</p></li>
+</ul>
 <p>From the model we can see that if the price of yogurt 1 goes up by $0.10 the market share does decrease by a substanticaal 32%. Subsequently this means that the popularity of yogurt 2 and 3 increases by 19% and 1% respectively. This shows that customers demand of yogurt is elastic.</p>
+</section>
 </section>
 </section>
 </section>
@@ -884,12 +881,12 @@ Data
 </div>
 </div>
 </div>
-<div id="1bfe86eb" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b6f4befc" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f24d4ebc" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rin.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div id="cf7c6277" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rin.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <div>
 
@@ -977,9 +974,9 @@ Data
 </div>
 </div>
 </div>
-<div id="8dc0eabc" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rin.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div id="b4d9df34" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rin.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <div>
 
@@ -1076,8 +1073,8 @@ Data
 </div>
 </div>
 </div>
-<div id="2460d8ee" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rin.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2db996c5" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rin.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 9000 entries, 0 to 8999
@@ -1097,30 +1094,31 @@ dtypes: int64(6), object(3)
 memory usage: 632.9+ KB</code></pre>
 </div>
 </div>
-<div id="a5a4602c" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rin.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="74733b81" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rin.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Index(['resp.id', 'ques', 'alt', 'carpool', 'seat', 'cargo', 'eng', 'price',
        'choice'],
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="f1cc8507" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#num of respondents</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>num_respondents <span class="op">=</span> rin[<span class="st">'resp.id'</span>].nunique()</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of respondents: </span><span class="sc">{</span>num_respondents<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#num of choice tasks per respondent</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>num_choice_tasks_per_respondent <span class="op">=</span> rin.groupby(<span class="st">'resp.id'</span>)[<span class="st">'ques'</span>].nunique().<span class="bu">max</span>()</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of choice tasks per respondent: </span><span class="sc">{</span>num_choice_tasks_per_respondent<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatives for choice task</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>num_alternatives_per_task <span class="op">=</span> rin.groupby([<span class="st">'resp.id'</span>, <span class="st">'ques'</span>]).size().<span class="bu">max</span>()</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of alternatives per choice task: </span><span class="sc">{</span>num_alternatives_per_task<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatives</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>alternatives_summary <span class="op">=</span> rin.groupby([<span class="st">'ques'</span>, <span class="st">'alt'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'counts'</span>)</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alternatives_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then I found how many respondents took the conjoint survey, how many choice tasks each respondent completed, and lastly how many alternatives were presented on each choice task for each alternative.</p>
+<div id="0aebc6a8" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#num of respondents</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>num_respondents <span class="op">=</span> rin[<span class="st">'resp.id'</span>].nunique()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of respondents: </span><span class="sc">{</span>num_respondents<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#num of choice tasks per respondent</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>num_choice_tasks_per_respondent <span class="op">=</span> rin.groupby(<span class="st">'resp.id'</span>)[<span class="st">'ques'</span>].nunique().<span class="bu">max</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of choice tasks per respondent: </span><span class="sc">{</span>num_choice_tasks_per_respondent<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatives for choice task</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>num_alternatives_per_task <span class="op">=</span> rin.groupby([<span class="st">'resp.id'</span>, <span class="st">'ques'</span>]).size().<span class="bu">max</span>()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of alternatives per choice task: </span><span class="sc">{</span>num_alternatives_per_task<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatives</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>alternatives_summary <span class="op">=</span> rin.groupby([<span class="st">'ques'</span>, <span class="st">'alt'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'counts'</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alternatives_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of respondents: 200
 Number of choice tasks per respondent: 15
@@ -1178,7 +1176,6 @@ Number of alternatives per choice task: 3
 <li>The number of choice tasks each respondent completed is 15.</li>
 <li>The number of alternatives that were presetned is 3.</li>
 </ul>
-<p>The attributes (levels) were number of seats (6,7,8), cargo space (2ft, 3ft), engine type (gas, hybrid, electric), and price (in thousands of dollars).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1191,61 +1188,63 @@ TODO: Model
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>The attributes (levels) were number of seats (6,7,8), cargo space (2ft, 3ft), engine type (gas, hybrid, electric), and price (in thousands of dollars).</p>
 <p><em>todo: estimate a MNL model omitting the following levels to avoide multicollinearity (6 seats, 2ft cargo, and gas engine). Include price as a continuous variable. Show a table of coefficients and standard errors. You may use your own likelihood function from above, or you may use a function from a package/library to perform the estimation.</em></p>
 </div>
 </div>
 </div>
-<p>To estimate a MNL model omitting the following levels to avoide multicollinearity I’ve chosen to use the statsmodels. Unfortunatly I could not get this to work. Therefore I decided to use the scikit-learn instead.</p>
+<p>To estimate a MNL model omitting the following levels to avoide multicollinearity I’ve firsted started with the statsmodels. Unfortunatly I could not get this to work, therefore I decided to use the scikit-learn instead.</p>
+<p>I also got created an accuracy metric and a confusion matrix to gauge how accurate this model is.</p>
 <section id="sct-learn" class="level5">
 <h5 class="anchored" data-anchor-id="sct-learn">sct learn</h5>
-<div id="8becf4ef" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reload data</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#convert and clean </span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'seat'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'seat'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'cargo'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'cargo'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'price'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'price'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'choice'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'choice'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> rin.assign(</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    seat<span class="op">=</span>rin[<span class="st">'seat'</span>].fillna(rin[<span class="st">'seat'</span>].mean()),</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    cargo<span class="op">=</span>rin[<span class="st">'cargo'</span>].fillna(rin[<span class="st">'cargo'</span>].mean()),</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    price<span class="op">=</span>rin[<span class="st">'price'</span>].fillna(rin[<span class="st">'price'</span>].mean()),</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    choice<span class="op">=</span>rin[<span class="st">'choice'</span>].fillna(rin[<span class="st">'choice'</span>].mode()[<span class="dv">0</span>]),</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    eng<span class="op">=</span>rin[<span class="st">'eng'</span>].fillna(<span class="st">'gas'</span>)</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#create dummy vals</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>rin_dummies <span class="op">=</span> pd.get_dummies(rin, columns<span class="op">=</span>[<span class="st">'seat'</span>, <span class="st">'cargo'</span>, <span class="st">'eng'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>expected_columns <span class="op">=</span> [<span class="st">'seat_7'</span>, <span class="st">'seat_8'</span>, <span class="st">'cargo_3'</span>, <span class="st">'eng_hyb'</span>, <span class="st">'eng_elec'</span>, <span class="st">'price'</span>]</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> expected_columns:</span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> rin_dummies.columns:</span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        rin_dummies[col] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Define X and Y</span></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> rin_dummies[expected_columns]</span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> rin_dummies[<span class="st">'choice'</span>]</span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="co">#standardize </span></span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(X)</span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="co">#fit the ML Regression model</span></span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(multi_class<span class="op">=</span><span class="st">'multinomial'</span>, solver<span class="op">=</span><span class="st">'lbfgs'</span>, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>model.fit(X_scaled, y)</span>
-<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a><span class="co">#pred</span></span>
-<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_scaled)</span>
-<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="co">#accuracy </span></span>
-<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y, y_pred)</span>
-<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Accuracy:"</span>, accuracy)</span>
-<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="co">#confusionmatrix </span></span>
-<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y, y_pred)</span>
-<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Confustion Matrix:"</span>,cm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c937d986" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reload data</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#convert and clean </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'seat'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'seat'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'cargo'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'cargo'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'price'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'price'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>rin[<span class="st">'choice'</span>] <span class="op">=</span> pd.to_numeric(rin[<span class="st">'choice'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> rin.assign(</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    seat<span class="op">=</span>rin[<span class="st">'seat'</span>].fillna(rin[<span class="st">'seat'</span>].mean()),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    cargo<span class="op">=</span>rin[<span class="st">'cargo'</span>].fillna(rin[<span class="st">'cargo'</span>].mean()),</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    price<span class="op">=</span>rin[<span class="st">'price'</span>].fillna(rin[<span class="st">'price'</span>].mean()),</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    choice<span class="op">=</span>rin[<span class="st">'choice'</span>].fillna(rin[<span class="st">'choice'</span>].mode()[<span class="dv">0</span>]),</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    eng<span class="op">=</span>rin[<span class="st">'eng'</span>].fillna(<span class="st">'gas'</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">#create dummy vals</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>rin_dummies <span class="op">=</span> pd.get_dummies(rin, columns<span class="op">=</span>[<span class="st">'seat'</span>, <span class="st">'cargo'</span>, <span class="st">'eng'</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>expected_columns <span class="op">=</span> [<span class="st">'seat_7'</span>, <span class="st">'seat_8'</span>, <span class="st">'cargo_3'</span>, <span class="st">'eng_hyb'</span>, <span class="st">'eng_elec'</span>, <span class="st">'price'</span>]</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> expected_columns:</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> rin_dummies.columns:</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        rin_dummies[col] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Define X and Y</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> rin_dummies[expected_columns]</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> rin_dummies[<span class="st">'choice'</span>]</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="co">#standardize </span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co">#fit the ML Regression model</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(multi_class<span class="op">=</span><span class="st">'multinomial'</span>, solver<span class="op">=</span><span class="st">'lbfgs'</span>, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>model.fit(X_scaled, y)</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="co">#pred</span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_scaled)</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="co">#accuracy </span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y, y_pred)</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Accuracy:"</span>, accuracy)</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="co">#confusionmatrix </span></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y, y_pred)</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Confustion Matrix:"</span>,cm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Accuracy: 0.6816666666666666
@@ -1255,20 +1254,37 @@ Confustion Matrix: [[5562  438]
 </div>
 </div>
 <p>Using that model I got the following results:</p>
+</section>
+<section id="coefficients" class="level5">
+<h5 class="anchored" data-anchor-id="coefficients">Coefficients:</h5>
 <ul>
-<li><p>Coefficients: seat_7: -0.1127 seat_8: -0.0618 cargo_3: 0.0000 eng_hyb: -0.0253 eng_elec: 0.0000 price: -0.3006</p></li>
+<li><p>seat_7: -0.1127</p></li>
+<li><p>seat_8: -0.0618</p></li>
+<li><p>cargo_3: 0.0000</p></li>
+<li><p>eng_hyb: -0.0253</p></li>
+<li><p>eng_elec: 0.0000</p></li>
+<li><p>price: -0.3006</p></li>
 <li><p>Intercepts: -0.3795</p></li>
 <li><p>Accuracy: (0.68)</p></li>
-<li><p>Confusion Matrix True Negatives: 5562 False Positives: 438 False Negatives: 2427 True Positives: 573</p></li>
 </ul>
-<p>We can see that the model performs well in predicted true negatives but not as well in predicting true positives.</p>
+</section>
+<section id="confusion-matrix" class="level5">
+<h5 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h5>
+<ul>
+<li><p>True Negatives: 5562</p></li>
+<li><p>False Positives: 438</p></li>
+<li><p>False Negatives: 2427</p></li>
+<li><p>True Positives: 573</p></li>
+</ul>
+<p>From the accuracy matrix we see that the model has 68% accurate.</p>
+<p>From the confusion matrix we can see that the model performs well in predicted true negatives but not as well in predicting true positives.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Results
+TODO: Coefficeints and Results
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1276,6 +1292,48 @@ Results
 <div class="callout-body-container callout-body">
 <p><em>todo: Interpret the coefficients. Which features are more preferred?</em></p>
 <p><em>todo: Use the price coefficient as a dollar-per-util conversion factor. What is the dollar value of 3ft of cargo space as compared to 2ft of cargo space?</em></p>
+</div>
+</div>
+</div>
+</section>
+<section id="coefficients-1" class="level5">
+<h5 class="anchored" data-anchor-id="coefficients-1">Coefficients:</h5>
+<ul>
+<li><p>seat_7: -0.1127</p></li>
+<li><p>seat_8: -0.0618</p></li>
+<li><p>cargo_3: 0.0000</p></li>
+<li><p>eng_hyb: -0.0253</p></li>
+<li><p>eng_elec: 0.0000</p></li>
+<li><p>price: -0.3006</p></li>
+</ul>
+<p>The feature that is most prefered is price as its the most significant factor because of the large negative coefficient. This means like the yogurt example, customers have a very elastic demand for the minivan market.</p>
+<div id="6597b620" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#coefficients</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>price_coefficient <span class="op">=</span> <span class="op">-</span><span class="fl">0.30063783</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#cargo_3 coefficient</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>cargo3_coefficient <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Dollar Value</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>dollar_value_cargo3 <span class="op">=</span> cargo3_coefficient <span class="op">/</span> <span class="bu">abs</span>(price_coefficient)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>dollar_value_cargo3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>0.3326261369036625</code></pre>
+</div>
+</div>
+<p>The dollar value of a 3ft cargo space compared to a 2ft cargo space is 0.33.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TODO: 6 Minivans
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p><em>todo: assume the market consists of the following 6 minivans. Predict the market shares of each minivan in the market.</em></p>
 <table class="table">
 <thead>
@@ -1336,25 +1394,6 @@ Results
 </div>
 </div>
 </div>
-<ul>
-<li>Coefficients: seat_7: -0.1127 seat_8: -0.0618 cargo_3: 0.0000 eng_hyb: -0.0253 eng_elec: 0.0000 price: -0.3006</li>
-</ul>
-<p>The feature that is most prefered is Price as its the most significant factor because of the large negative coefficient.</p>
-<div id="94218682" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#coefficients</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>price_coefficient <span class="op">=</span> <span class="op">-</span><span class="fl">0.30063783</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#cargo_3 coefficient</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cargo3_coefficient <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Dollar Value</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>dollar_value_cargo3 <span class="op">=</span> cargo3_coefficient <span class="op">/</span> <span class="bu">abs</span>(price_coefficient)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>dollar_value_cargo3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
-<pre><code>0.3326261369036625</code></pre>
-</div>
-</div>
-<p>The dollar value of a 3ft cargo space compared to a 2ft cargo space is 0.33.</p>
 
 
 </section>
