@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Rahul Kc">
-<meta name="dcterms.date" content="2024-05-16">
+<meta name="dcterms.date" content="2024-05-29">
 
 <title>Rahul - Multinomial Logit Examples</title>
 <style>
@@ -104,10 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-
-
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -222,7 +219,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 16, 2024</p>
+      <p class="date">May 29, 2024</p>
     </div>
   </div>
   
@@ -271,7 +268,7 @@ Import Libs
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="3dbd3f37" class="cell" data-execution_count="1">
+<div id="163575ac" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import libarary and data file</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
@@ -294,10 +291,10 @@ Import Libs
 </div>
 </div>
 </div>
-<div id="a8d9ec2b" class="cell" data-execution_count="2">
+<div id="7c834158" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>yog <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/yogurt_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="36e2f659" class="cell" data-execution_count="3">
+<div id="843cee25" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>yog.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -411,7 +408,7 @@ Import Libs
 </div>
 </div>
 </div>
-<div id="6422ae58" class="cell" data-execution_count="4">
+<div id="6a2f4351" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>yog.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -594,7 +591,7 @@ TODO: reshape and prep the data
 </div>
 </div>
 <p>I start by adding binary variables to indicate the first 3 products; and then I “pivoted” and “melted” from a wide dataframe to long dataframe for further data analysis.</p>
-<div id="75139f98" class="cell" data-execution_count="5">
+<div id="4d7c6ac1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#melt to long format</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>id_vars <span class="op">=</span> [<span class="st">'id'</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>value_vars <span class="op">=</span> [<span class="st">'f'</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)] <span class="op">+</span> [<span class="st">'p'</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)] <span class="op">+</span> [<span class="st">'y'</span> <span class="op">+</span> <span class="bu">str</span>(j) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)]</span>
@@ -645,7 +642,7 @@ Estimation
 </div>
 </div>
 <p>First I coded up the log-likelyhood function for the wide dataframe then I coded up a log-likelyhood for the long dataframe.</p>
-<div id="8f816ea5" class="cell" data-execution_count="6">
+<div id="113cad21" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make the feature matrix </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>feature_columns <span class="op">=</span> [<span class="st">'Yogurt_1'</span>, <span class="st">'Yogurt_2'</span>, <span class="st">'Yogurt_3'</span>, <span class="st">'f'</span>, <span class="st">'p'</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -654,7 +651,7 @@ Estimation
 </div>
 <section id="wide-format" class="level4">
 <h4 class="anchored" data-anchor-id="wide-format">Wide Format</h4>
-<div id="08e86b7c" class="cell" data-execution_count="7">
+<div id="1788a68e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data to a single choice index per consumer</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_choice_data(yog):</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    choice_matrix <span class="op">=</span> yog[[<span class="st">'y1'</span>, <span class="st">'y2'</span>, <span class="st">'y3'</span>, <span class="st">'y4'</span>]].values</span>
@@ -685,7 +682,7 @@ Estimation
 </section>
 <section id="long-format" class="level4">
 <h4 class="anchored" data-anchor-id="long-format">Long Format</h4>
-<div id="7802320c" class="cell" data-execution_count="8">
+<div id="ee6cce6d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta, X, choice):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#get the utility for each product choice</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    utility <span class="op">=</span> X.dot(beta)  </span>
@@ -745,7 +742,7 @@ Discussion
 <li><p>Price (-37.06): The large negative coefficient for shows that higher prices significantly decrease the probability of the yogurt being chosen which makes sense.</p></li>
 </ul>
 <p>Next I Found the utility difference, price coefficient and dollar benefit per unit.</p>
-<div id="0c163fd7" class="cell" data-execution_count="9">
+<div id="f621e915" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>estimated_coefficients <span class="op">=</span> np.array([<span class="fl">1.38775541</span>, <span class="fl">0.64350486</span>, <span class="op">-</span><span class="fl">3.08611796</span>, <span class="fl">0.48741262</span>, <span class="op">-</span><span class="fl">37.05800644</span>])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#get the intercepts and price coefficient from estimated</span></span>
@@ -792,7 +789,7 @@ Note
 </div>
 </div>
 <p>To calculate the changes that occur if a $0.10 price increase to yogurt A I use the fitted model to predict p(y|x) for each consumer and each product.</p>
-<div id="a467b01d" class="cell" data-execution_count="10">
+<div id="fbff024a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract columns and normalize price</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>feature_columns <span class="op">=</span> [<span class="st">'Yogurt_1'</span>, <span class="st">'Yogurt_2'</span>, <span class="st">'Yogurt_3'</span>, <span class="st">'f'</span>, <span class="st">'p'</span>]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> yogl[feature_columns].astype(<span class="bu">float</span>).values</span>
@@ -881,10 +878,10 @@ Data
 </div>
 </div>
 </div>
-<div id="76e1aae7" class="cell" data-execution_count="11">
+<div id="6887eb8a" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5228dd00" class="cell" data-execution_count="12">
+<div id="2a6ebe6c" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rin.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
@@ -974,7 +971,7 @@ Data
 </div>
 </div>
 </div>
-<div id="12b3e858" class="cell" data-execution_count="13">
+<div id="b6ff9dbd" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rin.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
@@ -1073,7 +1070,7 @@ Data
 </div>
 </div>
 </div>
-<div id="c4fd57dd" class="cell" data-execution_count="14">
+<div id="ee14b632" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rin.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -1094,7 +1091,7 @@ dtypes: int64(6), object(3)
 memory usage: 632.9+ KB</code></pre>
 </div>
 </div>
-<div id="a1db05ec" class="cell" data-execution_count="15">
+<div id="dd8a15e0" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rin.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Index(['resp.id', 'ques', 'alt', 'carpool', 'seat', 'cargo', 'eng', 'price',
@@ -1103,7 +1100,7 @@ memory usage: 632.9+ KB</code></pre>
 </div>
 </div>
 <p>Then I found how many respondents took the conjoint survey, how many choice tasks each respondent completed, and lastly how many alternatives were presented on each choice task for each alternative.</p>
-<div id="49c026fd" class="cell" data-execution_count="16">
+<div id="5c790475" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#num of respondents</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>num_respondents <span class="op">=</span> rin[<span class="st">'resp.id'</span>].nunique()</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of respondents: </span><span class="sc">{</span>num_respondents<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -1197,7 +1194,7 @@ TODO: Model
 <p>I also got created an accuracy metric and a confusion matrix to gauge how accurate this model is.</p>
 <section id="sct-learn" class="level5">
 <h5 class="anchored" data-anchor-id="sct-learn">sct learn</h5>
-<div id="ec6b19a4" class="cell" data-execution_count="17">
+<div id="33065695" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reload data</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>rin <span class="op">=</span> pd.read_csv(<span class="st">"C:/Users/kcrah/Desktop/Quarto_stuff/files/rintro-chapter13conjoint.csv"</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1307,7 +1304,7 @@ TODO: Coefficeints and Results
 <li><p>price: -0.3006</p></li>
 </ul>
 <p>The feature that is most prefered is price as its the most significant factor because of the large negative coefficient. This means like the yogurt example, customers have a very elastic demand for the minivan market.</p>
-<div id="ef801d7f" class="cell" data-execution_count="18">
+<div id="de2fc508" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#coefficients</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>price_coefficient <span class="op">=</span> <span class="op">-</span><span class="fl">0.30063783</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1395,7 +1392,7 @@ TODO: 6 Minivans
 </div>
 </div>
 <p>To predict the market shares of each minivan in the market I started by creating the dataframe with the given data.</p>
-<div id="629a4327" class="cell" data-execution_count="19">
+<div id="efb0852d" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create dataframe</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>minivans <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Seats'</span>: [<span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">7</span>],</span>
@@ -1439,7 +1436,6 @@ TODO: 6 Minivans
 5       F      0.990777</code></pre>
 </div>
 </div>
-<p>As we can see the market share…</p>
 
 
 </section>

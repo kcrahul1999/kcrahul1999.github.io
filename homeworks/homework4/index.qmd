@@ -1,0 +1,8 @@
+---
+title: "Multinomial Logit Examples"
+author: "Rahul Kc"
+date: today
+---
+
+
+This assignment uses uses the MNL model to analyze (1) yogurt purchase data made by consumers at a retail location, and (2) conjoint data about consumer preferences for minivans.

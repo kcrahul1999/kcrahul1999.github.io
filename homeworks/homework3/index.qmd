@@ -577,5 +577,3 @@ market_shares_chosen = market_shares[1]
 market_share_df = pd.DataFrame({'Minivan': minivan_names, 'Market Share': [market_shares_chosen] * len(minivan_names)})
 print(market_share_df)
 ```
-
-As we can see the market share...
