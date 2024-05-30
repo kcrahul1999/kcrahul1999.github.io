@@ -165,7 +165,7 @@
     "href": "homeworks.html",
     "title": "My Homeworks",
     "section": "",
-    "text": "A Replication of Karlan and List (2007)\n\n\n\n\n\n\nRahul Kc\n\n\nMay 29, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPoisson Regression Examples\n\n\n\n\n\n\nRahul Kc\n\n\nMay 29, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nMultinomial Logit Examples\n\n\n\n\n\n\nRahul Kc\n\n\nMay 29, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nKey Drivers Analysis\n\n\n\n\n\n\nRahul Kc\n\n\nMay 29, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "A Replication of Karlan and List (2007)\n\n\n\n\n\n\nRahul Kc\n\n\nMay 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nPoisson Regression Examples\n\n\n\n\n\n\nRahul Kc\n\n\nMay 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nMultinomial Logit Examples\n\n\n\n\n\n\nRahul Kc\n\n\nMay 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nKey Drivers Analysis\n\n\n\n\n\n\nRahul Kc\n\n\nMay 30, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nKey Drivers Analysis\n\n\n\n\n\n\nRahul Kc\n\n\nMay 30, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "homeworks/homework 2/index.html",
@@ -299,5 +299,12 @@
     "title": "Key Drivers Analysis",
     "section": "",
     "text": "This post implements a few measure of variable importance, interpreted as a key drivers analysis, for certain aspects of a payment card on customer satisfaction with that payment card.\ntodo: replicate the table on slide 19 of the session 4 slides. This involves calculating pearson correlations, standardized regression coefficients, “usefulness”, Shapley values for a linear regression, Johnson’s relative weights, and the mean decrease in the gini coefficient from a random forest. You may use packages built into R or Python.\nIf you want a challenge, either (1) implement one or more of the measures yourself. “Usefulness” is rather easy to program up. Shapley values for linear regression are a bit more work. Or (2) add additional measures to the table such as the importance scores from XGBoost."
+  },
+  {
+    "objectID": "homeworks/homework5/index.html",
+    "href": "homeworks/homework5/index.html",
+    "title": "Key Drivers Analysis",
+    "section": "",
+    "text": "This post implements a few measure of variable importance, interpreted as a key drivers analysis, for certain aspects of a payment card on customer satisfaction with that payment card.\n\n\n\n\n\n\nTODO\n\n\n\n\n\ntodo: replicate the table on slide 19 of the session 4 slides. This involves calculating pearson correlations, standardized regression coefficients, “usefulness”, Shapley values for a linear regression, Johnson’s relative weights, and the mean decrease in the gini coefficient from a random forest. You may use packages built into Python.\nIf you want a challenge, either (1) implement one or more of the measures yourself. “Usefulness” is rather easy to program up. Shapley values for linear regression are a bit more work. Or (2) add additional measures to the table such as the importance scores from XGBoost."
   }
 ]
