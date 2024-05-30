@@ -6,37 +6,16 @@ date: today
 
 This post implements a few measure of variable importance, interpreted as a key drivers analysis, for certain aspects of a payment card on customer satisfaction with that payment card.
 
+:::: {.callout-note collapse="true"}
+#### TODO
 _todo: replicate the table on slide 19 of the session 4 slides. This involves calculating pearson correlations, standardized regression coefficients, "usefulness", Shapley values for a linear regression, Johnson's relative weights, and the mean decrease in the gini coefficient from a random forest. You may use packages built into Python._
 
 _If you want a challenge, either (1) implement one or more of the measures yourself. "Usefulness" is rather easy to program up. Shapley values for linear regression are a bit more work. Or (2) add additional measures to the table such as the importance scores from XGBoost._
-
-Pearson Correlations = Pearson Correlations
-
-Polychoric Correlations = Standardized Coefficients
-
-Standardized Multiple Regression Coefficients 
-
-LMG / Shapley Values = Usefullness (R2)
-
-Johnson's Epilon = Permutation Importance
-
-Mean Decrease in RF Gini Coefficient
-
-
-```{python}
-pip install shap
-```
-
-```{python}
-pip install polychoric
-```
-
-```{r}
-install.packages("psych")
-```
+::::
 
 :::: {.callout-note collapse="true"}
-#### Loading Libs and Data
+#### Import libs and data
+
 ```{python}
 #Import libarary and data file
 import pandas as pd
@@ -47,7 +26,6 @@ import numpy as np
 import math  
 import scipy.optimize as optimize
 import scipy.stats as stats
-import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from scipy.optimize import minimize
@@ -56,18 +34,17 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from dominance_analysis import Dominance
+from sklearn.linear_model import LinearRegression
 ```
 
 ```{python}
-drive = pd.read_csv("C:/Users/kcrah/Desktop/Quarto_stuff/files/data_for_drivers_analysis.csv")
+drive = pd.read_csv('C:/Users/kcrah/Desktop/Quarto_stuff/files/data_for_drivers_analysis.csv')
 ```
 ::::
 
 :::: {.callout-note collapse="true"}
 #### EDA
-```{python}
-
-```
 
 ```{python}
 drive.head()
@@ -82,159 +59,195 @@ drive.info()
 ```
 ::::
 
+#### Analysis
 
-:::: {.callout-note collapse="true"}
-#### Code
-
-
-The first thing I did was calculate the pearson correlation for drive
+First step is to define the predictor columns and seperate them from the target column, basically setting the 'X' and 'y' variable. Next is to standardize the predictors using 'StandardScaler' to ensure all prediction variables are scaled properly for the upcomming regression.
 ```{python}
-# Step 1: Pearson Correlations
+#Define the X columns
+relevant_columns = ['trust', 'build', 'differs', 'easy', 'appealing', 'rewarding', 'popular', 'service', 'impact']
+
+#Seperate the predicted 'y'
+X = drive[relevant_columns]
+y = drive['satisfaction']
+
+#Standardize the 'X' columns
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+```
+
+The first thing I did was calculate the pearson correlation by just running the correlation function for the satisfcation column. This calculates the weight of the relationship between the 'satisfaction' column and the other predictor columns.
+
+```{python}
+#Pearson correlation
 pearson_corr = drive.corr()['satisfaction']
-
-# Display the Pearson correlations
 pearson_corr
-
 ```
 
 Next I calculated the polychoric correlations. I initially tried using the polychoric package but I was not able to get that to work. Fortunately I found a package in R called 'psych' which does exactly that in a few lines of code.
 
 However this meant I would have to write the resulting csv becuase the alternative method that does not use this process is way more complex. 
 
+```
 ```{r}
 library(psych)
 
-# Read the data
+# read the data
 data <- read.csv("C:/Users/kcrah/Desktop/Quarto_stuff/files/data_for_drivers_analysis.csv")
 
-# Select only the ordinal variables
+# relevant columns
 ordinal_vars <- data[c("trust", "build", "differs", "easy", "appealing", "rewarding", "popular", "service", "impact")]
 
-# Calculate the polychoric correlation matrix
+# calculate the polychoric correlation matrix
 polychoric_corr_matrix <- polychoric(ordinal_vars)$rho
 
-# Save the polychoric correlation matrix to a CSV file
+# save to csv
 write.csv(polychoric_corr_matrix, "C:/Users/kcrah/Desktop/Quarto_stuff/files/polychoric_corr_matrix.csv", row.names = TRUE)
 ```
 
-
 ```{python}
-# Step 2: Load Polychoric Correlations
+#Load polychoric correlation 
 polychoric_corr = pd.read_csv("C:/Users/kcrah/Desktop/Quarto_stuff/files/polychoric_corr_matrix.csv", index_col=0)
-polychoric_corr = polychoric_corr['satisfaction']
 
-# Display the Polychoric correlations
-polychoric_corr.head()
+print(polychoric_corr)
 ```
 
-
-Next I standardized the multiple regression coefficients
+Next I standardized the multiple regression coefficients. The first step was to add a column so that the model can fit the 'satisfaction' variable when all predictors are zero. Then I made the OLS regression model, making sure to exclude the intercept the at end. 
 ```{python}
-import statsmodels.api as sm
-from sklearn.preprocessing import StandardScaler
 
-# Extract the predictors and response variable
-X = drive.drop(columns=['satisfaction', 'id'])
+X = drive[relevant_columns]
 y = drive['satisfaction']
 
-# Standardize the predictors
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Add a constant term for the intercept
-X_scaled = sm.add_constant(X_scaled)
+#Add intercept for OLS model
+X_ols = sm.add_constant(X_scaled)
 
-# Fit the multiple regression model
-model = sm.OLS(y, X_scaled).fit()
+#Create the OLS
+model = sm.OLS(y, X_ols).fit()
 
-# Extract standardized coefficients
-standardized_coeffs = model.params[1:]  # Exclude the intercept
+#Take out intercept and extract the rest
+standardized_coeffs = model.params[1:]
 
 standardized_coeffs
 ```
 
-Then I Calculated the R^2 values from individual regression models for each predictor
+Then I calculated the Shapley Values using the Shap package. First step was to make the linear regression model then to calculate the shapley value for each predictor. 
+```{python}
+#Make the linear regression model
+linear_regressor = LinearRegression()
+linear_regressor.fit(X_scaled, y)
+
+#Calculate Shapley values 
+explainer = shap.Explainer(linear_regressor, X_scaled)
+shap_values = explainer(X_scaled)
+
+#Calculate the mean value for each feature
+shapley_values = np.abs(shap_values.values).mean(axis=0)
+
+shapley_df = pd.DataFrame({
+    'Feature': relevant_columns,
+    'Shapley Value': shapley_values
+})
+
+print(shapley_df)
+```
+
+Then I Calculated the R^2 values from individual regression models for each predictor.
 
 ```{python}
-# Calculate R² values from individual regression models for each predictor
+#Calculate R2 values each predictor column
 usefulness = {}
-for col in X.columns:
-    model = sm.OLS(y, sm.add_constant(X[col])).fit()
+for col in relevant_columns:
+    model = sm.OLS(y, sm.add_constant(drive[[col]])).fit()
     usefulness[col] = model.rsquared
 
 usefulness
-
 ```
 
+Calculating Johnson's Epilon was next and it presented a much tougher challange. I first tried using several packages, such as RidgeExplainer, to make it simple but could not get any to function. Therefore I had to find a function that could replicate the package. It starts by standardizing the predictor to fit the regression then calculates the corellation matrix for said predictors. Then the 'eigenvalues' and 'eigenvectors' are used to calculate the weights to figure out reach predictor importance.Finally each weight is calculated.
 
 ```{python}
-import shap
-from sklearn.linear_model import LinearRegression
-from sklearn.inspection import permutation_importance
+def calculate_relative_weights(X, y):
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    model = LinearRegression()
+    model.fit(X_scaled, y)
+    
+    #Calculate the correlation matrix of the predictors
+    corr_matrix = np.corrcoef(X_scaled, rowvar=False)
+    
+    #Calculate eigenvalues and eigenvectors
+    eigenvalues, eigenvectors = np.linalg.eigh(corr_matrix)
+    
+    #Calculate the matrix of weights
+    weights_matrix = np.dot(eigenvectors, np.diag(np.sqrt(eigenvalues)))
+    
+    #Calculate the squared multiple correlations for the predictors
+    smcs = np.sum(weights_matrix**2, axis=1)
+    
+    #Calculate the relative weights
+    raw_weights = np.dot(weights_matrix**2, model.coef_**2)
+    relative_weights = raw_weights / smcs
+    
+    #Convert to percentages
+    relative_weights = 100 * relative_weights / np.sum(relative_weights)
+    
+    return relative_weights
 
-# Fit a linear regression model using sklearn
+X = drive[relevant_columns]
+y = drive['satisfaction']
+
+#Calculate weights
+relative_weights = calculate_relative_weights(X, y)
+
+relative_weights_df = pd.DataFrame({
+    'Feature': relevant_columns,
+    'Relative Weight': relative_weights
+})
+
+relative_weights_df.head()
+```
+
+Then I calculated the permutation importance. 
+```{python}
 linear_regressor = LinearRegression()
-linear_regressor.fit(X_scaled[:, 1:], y)  # Exclude the intercept
+linear_regressor.fit(X_scaled, y)
 
-# Calculate permutation importance
-perm_importance = permutation_importance(linear_regressor, X_scaled[:, 1:], y, n_repeats=10, random_state=42)
+# permutation importance
+perm_importance = permutation_importance(linear_regressor, X_scaled, y, n_repeats=10, random_state=42)
 perm_importance_mean = perm_importance.importances_mean
 
 perm_importance_mean
 
 ```
 
-Next I calculated the mean decrease in gini coefficient from the random Forest model
+Next I calculated the mean decrease in gini coefficient from the random Forest model.This gets the weight that each feature makes in the splits of the tree. Useful because RF can find non linear relations between all the features making it a great model.
 
 ```{python}
-from sklearn.ensemble import RandomForestRegressor
-
+# Mean Decrease in Gini Coefficient from Random Forest
 # Fit a random forest model
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
-rf_model.fit(X, y)
+rf_model.fit(drive[relevant_columns], y)
 importances = rf_model.feature_importances_
 
 importances
 
 ```
 
-Finally I compiled the results into the dataFrame
+Finally I merged the results into the results dataframe and rounded by 2 decimal points.
 ```{python}
-# Compile the results into a DataFrame for easy viewing
 results = pd.DataFrame({
-    'Pearson Correlations': pearson_corr[X.columns] * 100,  # convert to percentages
-    'Standardized Coefficients': standardized_coeffs * 100,  # convert to percentages
-    'Usefulness (R²)': pd.Series(usefulness) * 100,  # convert to percentages
-    'Permutation Importance': perm_importance_mean * 100,  # convert to percentages
-    'Mean Decrease in Gini': importances * 100  # convert to percentages
-}, index=X.columns)
+    'Pearson Correlations': pearson_corr[relevant_columns] * 100,  
+    'Polychoric Correlations': polychoric_corr.loc[relevant_columns, relevant_columns].mean(axis=1) * 100, 
+    'Standardized Coefficients': standardized_coeffs * 100,   
+    'Shapley Values': shapley_values * 100,  
+    'Johnson\'s Relative Weights': relative_weights, 
+    'Mean Decrease in Gini': importances * 100, 
+    'Usefulness (R²)': pd.Series(usefulness)[relevant_columns] * 100, 
+    'Permutation Importance': perm_importance_mean * 100  
 
-# Display the results
-results
-
+}, index=relevant_columns)
+results_round = results.round(2)
+results_round.head()
 ```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-::::
