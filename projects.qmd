@@ -1,8 +1,8 @@
 ---
 title: "My Projects"
 listing: 
-  contents: projects
+  contents: Projects1
   type: grid
   sort: "date desc"
-  categories: false
+  categories: true
 ---
